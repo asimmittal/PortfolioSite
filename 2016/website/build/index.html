@@ -10,6 +10,7 @@
 	<body>
         
         <div id="portfolio">
+            
             <!-- Header -->
             <div class="header">
                 <!-- hamburger menu -->
@@ -17,14 +18,17 @@
                     <i class="fa fa-bars" aria-hidden="true" id="menuToggle"></i>
                 </div>
                 
-                <div class="contact">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                <!-- header icons / actions -->
+                <div class="headerActions">
+                    <div class="headerIcon" title="Resume"><i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-left:12px"></i></div>
+                    <div class="headerIcon" title="Blog"><i class="fa fa-pencil" aria-hidden="true" style="margin-left:12px"></i></div>
+                    <div class="headerIcon" title="Contact"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                 </div>
                 
                 <!-- Name and tagline -->
                 <div class="brand">
                     <div class="name">Asim Mittal</div>
-                    <div class="tagline">UX DESIGN | SOFTWARE</div>
+                    <div class="tagline">UX Designer | Software Developer</div>
                 </div>
             </div>
             
@@ -33,16 +37,24 @@
                 <ul>
                     <li>Resume</li>
                     <li>Blog</li>
+                    <li>Contact</li>
                 </ul>
             </div>
         
 
             <!-- content for project tiles -->
             <div class="tileGrid" id="tiles">
-                <div class="container-fluid" id="projectContainer">
-
-                </div>
+                <div class="container-fluid" id="projectContainer"></div>
             </div>
+            
+            <!-- Opacity layer -->
+            <div id="mask" class="container-fluid"></div>
+            
+            <!-- content for main project page -->
+            <div id="projArea" class="container-fluid">
+                
+            </div>
+            
         </div>
         
         <!-- attach our app script -->

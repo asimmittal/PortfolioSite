@@ -4,33 +4,61 @@ module.exports = function () {
 
     var projects = [
         {
-            title: "Title 1",
-            tagline: "Some Description1",
-            img: "nimble-title.jpg",
-            url: ""
+            title: "Ximble",
+            tagline: "Scheduling + Time tracking platform",
+            img: "nimble_title.jpg",
+            url: "",
+            client:"Nimble Software",
+            year: 2015
         },
         {
-            title: "Title 2",
-            tagline: "Some Description2",
-            img: "nimble-title.jpg",
-            url: ""
+            title: "Emmersiv",
+            tagline: "Therapeutic Games for Autistic kids",
+            img: "emmersiv_title.jpg",
+            url: "",
+            client:"Client",
+            year: 2015
         },
         {
             title: "Title 3",
             tagline: "Some Description3",
-            img: "nimble-title.jpg",
-            url: ""
+            img: "ge_title.jpg",
+            url: "",
+            client:"Client"
+        },
+        {
+            title: "Title 4",
+            tagline: "Some Description3",
+            img: "kinemed_title.jpg",
+            url: "",
+            client:"Client"
+        },
+        {
+            title: "Title 5",
+            tagline: "Some Description3",
+            img: "secretmenu_title.jpg",
+            url: "",
+            client:"Client"
+        },
+        {
+            title: "Title 6",
+            tagline: "Some Description3",
+            img: "depthselect_title.jpg",
+            url: "",
+            client:"Client"
         }
     ];
 
     this.getProjects = function () {
         var projectsWithPaths = projects.map(function (eachProj) {
-            return {
-                title: eachProj.title,
-                tagline: eachProj.tagline,
-                img: basePathToTiles + "/" + eachProj.img,
-                url: eachProj.url
+            
+            //a little path transformation for the image attribute
+            eachProj.img = basePathToTiles + "/" + eachProj.img;
+            if(eachProj.hasOwnProperty('year')){
+                eachProj.client += " (" + eachProj.year + ")";
             }
+            
+            return eachProj;
         });
 
         return projectsWithPaths;

@@ -1,30 +1,22 @@
+var $ = require('jquery');
+
 var MenuToggler = function(){
     
     this.enable = function(){
+        
         var isMenuVisible = false;
-        var tileGrid = document.getElementById('tiles');
-        var menuToggle = document.getElementById('menuToggle');
-
-        menuToggle.addEventListener('click',function(e){
-            if(isMenuVisible == false) {
-                showMenu(); 
+        
+        //attach a click handler to the menu toggle control
+        $('#menuToggle').click(function(e){
+            if(isMenuVisible == false){
+                $('#tiles').animate({top: "+=140"},120,'linear');
                 isMenuVisible = true;
             }
-            else {
-                hideMenu();
+            else{
+                $('#tiles').animate({top: "-=140"},120,'linear');
                 isMenuVisible = false;
-            }
+            } 
         });
-
-        var showMenu = function(){
-            tileGrid.className = tileGrid.className.replace(' slideUpMenu','');
-            tileGrid.className += ' slideDownMenu';
-        }
-
-        var hideMenu = function(){
-            tileGrid.className = tileGrid.className.replace(' slideDownMenu','');
-            tileGrid.className += ' slideUpMenu';
-        }
     }
 };
 

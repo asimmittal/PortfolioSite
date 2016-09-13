@@ -1,10 +1,21 @@
-@blue: #4fc7e8;
+@blue: #FF8787;
 @tileCoverColor: black;
 
 body{
     overflow-y:hidden;
 }
 
+
+/*************************************************************
+    #portfolio is the outermost div (just inside the body)
+    that basically contains everything you see on the main
+    page. Other components include:
+
+        i. Header (with branding, hamburger, action icons)
+        ii. Menu (resume,blog,contact) - mobile view
+        iii. tileGrid - renders all the project tiles
+    
+**************************************************************/
 #portfolio{
     position:fixed;
     top:0; bottom:0;
@@ -12,6 +23,8 @@ body{
     background:white;
     overflow-y:scroll;
     
+    // header is the bar on top that has my name, what i do 
+    // the hamburger menu toggle and the three action icons
     .header{
         position: absolute;
         height: 80px;
@@ -32,36 +45,47 @@ body{
             }
 
             .tagline{
-                font-family: Helvetica, 'Sans Serif';
+                font-family: 'Roboto', 'Sans Serif';
                 font-size: 12px;
                 font-weight: 100;
                 color: white;
             }
         }
         
-        .contact{
+        .headerActions{
             float: right;
-            height: 40px;
-            width: 40px;
-            border: 1px solid white;
-            border-radius: 20px;
-            margin-right: 20px;
+            height: 50px;
+            width: 180px;
+            //background: gray;
+            margin-right: 50px;
             margin-top: 20px;
-            
-            i{
-                font-size: 18px;
-                text-align: center;
-                margin-left:10px;
-                margin-top: 10px;
-                color:white;
-            }
-        }
 
+            .headerIcon{
+                height: 40px;
+                width: 40px;
+                border: 1px solid white;
+                border-radius: 20px;
+                float:left;
+                margin-left: 15px;
+                cursor:pointer;
+                
+                i{
+                    font-size: 18px;
+                    text-align: center;
+                    margin-left:10px;
+                    margin-top: 10px;
+                    color:white;
+                }
+            }
+    
+        }
+        
         .hamburger{
             float: left;
             height: 40px;
             width: 40px;
-            margin-top:20px;        
+            margin-top:20px;  
+            display: none;
 
             i{
                 color:white;
@@ -74,6 +98,9 @@ body{
         }
     }
     
+    // this is the context menu that is typically hidden beneath
+    // the project tiles. it is shown when the hamburger icon
+    // is clicked and used on small width browsers (mobile view)
     #menu{
         position: absolute;
         left: 0; right: 0;
@@ -98,18 +125,43 @@ body{
             font-weight: 100;
         }
     }
+    
+    // when the screen is wider than 800px, show all the
+    // action icons in the header (on top right side)
+    // hide the hamburger menu (this is used only on mobile
+    // browsers)
+    @media (min-width:800px){
+        .headerActions {display: inline}
+        .hamburger{display:none}
+    }
+
+    // when the screen is less than 800px, let's assume
+    // we're on a mobile browser. Hide the action icons
+    // and show the hamburger icon. clicking this slides
+    // the tile grid lower to reveal the context menu
+    // this is for mobile browsers
+    @media (max-width:799px){
+        .headerActions {display: none}
+        .hamburger{display:inline}
+    }
 }
 
 
+/*************************************************************
+    tileGrid is a div that contains the fluid (bootstrap)
+    containers and displays the tiles for each project. The
+    project tiles are React components
+*************************************************************/
 .tileGrid{
     position: absolute;
     left:0; right:0;
     top: 80px;
+    background:white;
     
     .container-fluid{
         .tile{
-            height:250px;
-            background-size: 100%;
+            height:350px;
+            background-size: cover;
             background-repeat: no-repeat;
             cursor: pointer;
             
@@ -144,7 +196,7 @@ body{
                     font-size: 18px;
                     color: white;
                     text-transform: uppercase;
-                    margin-top: 100px;
+                    margin-top: 120px;
                 }
                 
                 .projDescr{
@@ -153,6 +205,20 @@ body{
                     font-weight: lighter;
                     margin-top: -20px;
                     color:white;
+                }
+                
+                .projSep{
+                    color:lighten(black,40%);
+                    margin-top:-20px;
+                }
+                
+                .projClient{
+                    color: lighten(black,70%);
+                    font-size: 13px;
+                    font-family: helvetica;
+                    text-transform: capitalize;
+                    margin-top: -20px;
+                    font-weight: 100;
                 }
                 
                 &:hover{
@@ -166,15 +232,28 @@ body{
     }
 }
 
-.slideDownMenu{
-    -webkit-transition-property: top;
-    -webkit-transition-duration: 0.25s;
-    top: 185px;
+
+#mask{
+    position: absolute;
+    background: black;
+    opacity:0.7;
+    left:0; right:0;
+    top: 0; bottom: 0;
+    display:none;
 }
 
-.slideUpMenu{
-    -webkit-transition-property: top;
-    -webkit-transition-duration: 0.25s;
-    top:80px;
+#projArea{
+    background: white;
+    position: absolute;
+    left:90px; right: 0;
+    top: 0; bottom: 0;
+    display: none;
+    -webkit-box-shadow: -4px 0px 36px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -4px 0px 36px -8px rgba(0,0,0,0.75);
+    box-shadow: -4px 0px 36px -8px rgba(0,0,0,0.75);
+    overflow:hidden;
 }
+
+
+
 

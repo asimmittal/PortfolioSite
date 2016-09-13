@@ -29,6 +29,7 @@ var ProjectTile = React.createClass({
         // passed in as a prop. Must contain (at least)
         // a tagline and a title
         var project = this.props.project;
+        var width = this.props.widthStyle;
         var divStyleForImage = {
             backgroundImage: 'url(' + project.img + ')'   
         }
@@ -38,10 +39,12 @@ var ProjectTile = React.createClass({
             
             // 'col-md-4' is a responsive column (bootstrap)
             // 'tile' applies the custom style for this div
-            <div className="col-md-6 tile" style={divStyleForImage}>
+            <div className={width + " tile"} style={divStyleForImage}>
                 <div className="projMeta">
                     <p className="projTitle">{project.title}</p>
                     <p className="projDescr">{project.tagline}</p>
+                    <p className="projSep">--</p>
+                    <p className="projClient">{project.client}</p>
                 </div>
             </div>
         );
@@ -64,13 +67,16 @@ var TileGrid = React.createClass({
         
         // the list of projects is passed as a prop
         var projects = this.props.projects;
+        var counter = 0;
+        var widthStyle_2 = 'col-md-6';
+        var appliedWidthStyle = widthStyle_2;
         
         // return the DOM for each tile rendered using a ProjectTile component
         return (
             <div className="row">
             {
                 projects.map(function(proj,index){
-                    return (<ProjectTile key={index} project={proj}/>)
+                    return (<ProjectTile key={index} project={proj} widthStyle={appliedWidthStyle}/>)
                 })
             }
             </div>

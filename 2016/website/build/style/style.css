@@ -1,6 +1,16 @@
 body {
   overflow-y: hidden;
 }
+/*************************************************************
+    #portfolio is the outermost div (just inside the body)
+    that basically contains everything you see on the main
+    page. Other components include:
+
+        i. Header (with branding, hamburger, action icons)
+        ii. Menu (resume,blog,contact) - mobile view
+        iii. tileGrid - renders all the project tiles
+    
+**************************************************************/
 #portfolio {
   position: fixed;
   top: 0;
@@ -16,7 +26,7 @@ body {
   top: 0px;
   left: 0;
   right: 0;
-  background: #4fc7e8;
+  background: #FF8787;
 }
 #portfolio .header .brand {
   margin-left: 60px;
@@ -30,21 +40,28 @@ body {
   font-weight: lighter;
 }
 #portfolio .header .brand .tagline {
-  font-family: Helvetica, 'Sans Serif';
+  font-family: 'Roboto', 'Sans Serif';
   font-size: 12px;
   font-weight: 100;
   color: white;
 }
-#portfolio .header .contact {
+#portfolio .header .headerActions {
   float: right;
+  height: 50px;
+  width: 180px;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+#portfolio .header .headerActions .headerIcon {
   height: 40px;
   width: 40px;
   border: 1px solid white;
   border-radius: 20px;
-  margin-right: 20px;
-  margin-top: 20px;
+  float: left;
+  margin-left: 15px;
+  cursor: pointer;
 }
-#portfolio .header .contact i {
+#portfolio .header .headerActions .headerIcon i {
   font-size: 18px;
   text-align: center;
   margin-left: 10px;
@@ -56,6 +73,7 @@ body {
   height: 40px;
   width: 40px;
   margin-top: 20px;
+  display: none;
 }
 #portfolio .header .hamburger i {
   color: white;
@@ -71,10 +89,10 @@ body {
   right: 0;
   top: 80px;
   height: 200px;
-  background: #4fc7e8;
+  background: #FF8787;
   color: white;
   z-index: 0;
-  border-top: 1px solid #7cd5ee;
+  border-top: 1px solid #ffbaba;
 }
 #portfolio #menu ul {
   margin-top: 25px;
@@ -88,15 +106,32 @@ body {
   list-style: none;
   font-weight: 100;
 }
+@media (min-width: 800px) {
+  #portfolio .headerActions {
+    display: inline;
+  }
+  #portfolio .hamburger {
+    display: none;
+  }
+}
+@media (max-width: 799px) {
+  #portfolio .headerActions {
+    display: none;
+  }
+  #portfolio .hamburger {
+    display: inline;
+  }
+}
 .tileGrid {
   position: absolute;
   left: 0;
   right: 0;
   top: 80px;
+  background: white;
 }
 .tileGrid .container-fluid .tile {
-  height: 250px;
-  background-size: 100%;
+  height: 350px;
+  background-size: cover;
   background-repeat: no-repeat;
   cursor: pointer;
 }
@@ -132,7 +167,7 @@ body {
   font-size: 18px;
   color: white;
   text-transform: uppercase;
-  margin-top: 100px;
+  margin-top: 120px;
 }
 .tileGrid .container-fluid .tile .projMeta .projDescr {
   font-family: 'Roboto', Helvetica;
@@ -141,19 +176,44 @@ body {
   margin-top: -20px;
   color: white;
 }
+.tileGrid .container-fluid .tile .projMeta .projSep {
+  color: #666666;
+  margin-top: -20px;
+}
+.tileGrid .container-fluid .tile .projMeta .projClient {
+  color: #b3b3b3;
+  font-size: 13px;
+  font-family: helvetica;
+  text-transform: capitalize;
+  margin-top: -20px;
+  font-weight: 100;
+}
 .tileGrid .container-fluid .tile .projMeta:hover {
   opacity: 0.75;
   transition: opacity 0.25s ease-in-out;
   -moz-transition: opacity 0.25s ease-in-out;
   -webkit-transition: opacity 0.25s ease-in-out;
 }
-.slideDownMenu {
-  -webkit-transition-property: top;
-  -webkit-transition-duration: 0.25s;
-  top: 185px;
+#mask {
+  position: absolute;
+  background: black;
+  opacity: 0.7;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
 }
-.slideUpMenu {
-  -webkit-transition-property: top;
-  -webkit-transition-duration: 0.25s;
-  top: 80px;
+#projArea {
+  background: white;
+  position: absolute;
+  left: 90px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  -webkit-box-shadow: -4px 0px 36px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -4px 0px 36px -8px rgba(0, 0, 0, 0.75);
+  box-shadow: -4px 0px 36px -8px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
 }
