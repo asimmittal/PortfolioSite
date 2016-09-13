@@ -1,0 +1,126 @@
+<html>
+<!-- Kinemed -->
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet/less" href="../../style/pagestyle.css">
+</head>
+
+<body>
+    <div class="titleInfo">
+        <h1>Kinemed</h1>
+        <h3>Gestural interface for the OPERATING ROOM</h3>
+        <img src="upmc-logo.jpg" width="150px" class="logo" alt="logo">
+        <br><hr>
+    </div>
+    
+    <div class="pageContentDiv">
+        <div class="container-fluid">            
+            <div class="row">                                
+                <!-- Meta data goes in here -->
+                <div class="col-sm-12 meta">                    
+                    <!-- Meta: Team -->
+                    <div class="row">
+                        <h4>Team</h4>
+                        <ul>
+                            <li class="first">Dr. Robert Sheu</li>                            
+                            <li class="">Dr. Stamatis Kantartzis</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Meta: Skills -->
+                    <div class="row">
+                        <h4>Skills</h4>
+                        <ul>
+                            <li class="first">User research</li>
+                            <li>Rapid Prototyping</li>
+                            <li>Interaction design</li>
+                            <li>Kinect SDK</li>
+                            <li>UI Dev</li>                            
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Project core content -->
+                <div class="col-sm-12 mainContent">
+                    <h4>Problem</h4>
+                    <p>
+                        Surgeons need to maintain absolute sterility while operating. But often, they have to use interfaces such as a mouse or a keyboard
+                        to review medical images for the patient. This causes them to break sterility and they have to rescrub and wash their hands again and again. This wastes time and is inefficient and redundant.
+                    </p>
+
+                    <h4>Solution</h4>
+                    <iframe class="embed" src="https://www.youtube.com/embed/Lt5Dv250rPM?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                    <br><br>
+                    <p>
+                        Kinemed is a gestural interface that allows surgeons to navigate through medical images without using a keyboard or a mouse. A sugeon can scroll through 
+                        a series of images in an MRI simply by waving his hand. To allow for better utility, the system also supports variable speed scrolling and other 
+                        gestures for contrast adjustment.
+                    </p>
+                    
+                    <h4>Research</h4>
+                    <div class="imageSlider">
+                        <!--divs for images -->
+                        <div class="img" style="background: url('research1.jpg') no-repeat;margin-left:0%;background-size:contain"></div>
+                        <div class="img" style="background: url('research2.jpg') no-repeat;margin-left:100%;background-size:contain"></div>
+                        <div class="img" style="background: url('research3.jpg') no-repeat;margin-left:200%;background-size:contain"></div>
+                        <div class="img" style="background: url('research4.jpg') no-repeat;margin-left:300%;background-size:contain"></div>
+                        
+                        <!-- controls: left / right --->
+                        <span class="ctrlLeft"><div></div></span>
+                        <span class="ctrlRight"><div></div></span>
+                    </div>
+                    <br>
+                    <p>
+                        Before taking on the project, I had a long conversation with my parents, both of whom are surgeons, about 
+                        their experiences in using medical images during surgery. Followed by that, I shadowed three different surgeons during surgical procedures. 
+                        Here's what I learnt:
+                        <ul>
+                            <li>Surgeries can involve multiple teams of people. ORs get really crowded</li>
+                            <li>Surgeons use medical images like references in the OR. They're meta data.</li>
+                            <li>Sometimes, nurses/techs control the imaging equipment so that the surgeon maintains sterility</li>
+                            <li>The same imaging equipment may be used by multiple ORs</li>
+                            <li>A lot of ancillary medical software is put on less powerful, mobile workstations</li>
+                            <li>Imaging software is closed source, and there are no APIs available</li>
+                        </ul>
+                    </p>
+                    
+                    <h4>Design</h4>
+                    <img src="design1.jpg" width="100%"/>
+                    <p>
+                        After I understood the surgical environment a little better, I was able to create certain design guidelines for
+                        this project. Here are the underlying design principles for Kinemed:
+                        <ul>
+                            <li>Designing the software is not enough. Deploying it in a mobile form factor will be important</li>
+                            <li>Surgeons need to operate. Keep the interactions as simple as 1..2..3!</li>
+                            <li>There will be certain software tasks that will need the mouse/keyboard (e.g. selecting a patient etc.)</li>
+                            <li>Images can span the entire screen, UI needs to be minimalistic yet indicative</li>
+                            <li>APIs aren't available, the software will have to fake keyboard / mouse operations</li>
+                        </ul>
+                    </p><br>
+                    <img src="design2.jpg" width="100%"/>
+                    <p>
+                        After a brief period of testing, I realized that visual indication of presence played a big role in making
+                        surgeons feel that the system was active and ready for them to use. This helped me narrow down from the two
+                        UI concepts to one which was wireframed and eventually built out.
+                    </p>
+            
+                    <h4>Finale</h4>
+                    <p>
+                        This tool was licensed to University of Pittsburgh Medical Center for further development and incorporation
+                        into their surgical practice.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../lib/less.min.js" type="text/javascript"></script>
+    <script src="../../script/pagescript.js" type="text/javascript"></script>
+</body>
+
+</html>

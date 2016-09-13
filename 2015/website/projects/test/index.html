@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">    
+        <link rel="stylesheet/less" href="../../style/pagestyle.css">        
+    </head>
+    <body>
+        <div class="pageContentDiv">
+            <h1>Project Title</h1>
+            
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, quo ex sanctus facilis habemus, vix eu option mediocritatem, inermis mnesarchum mediocritatem eum id. 
+                Iusto luptatum volutpat sea ut. At vim fierent interpretaris, eam omnis graeco et. Per hinc quando ea. Et choro omnes congue qui, 
+                mea ea movet errem, mel ut facer placerat. Tota graeco nostrum et has. Porro similique conceptam nec te, novum laudem voluptaria 
+                sea at. 
+            </p>
+            <iframe class="embed" src="https://www.youtube.com/embed/NpEaa2P7qZI?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            <br>         
+            <h3>Subheading</h3>
+            <p>
+                Lorem ipsum dolor sit amet, quo ex sanctus facilis habemus, vix eu option mediocritatem, inermis mnesarchum mediocritatem eum id. 
+                Iusto luptatum volutpat sea ut. At vim fierent interpretaris, eam omnis graeco et. Per hinc quando ea. Et choro omnes congue qui, 
+                mea ea movet errem, mel ut facer placerat. Tota graeco nostrum et has. Porro similique conceptam nec te, novum laudem voluptaria 
+                sea at. Melius appetere ut qui. <br><br>Te errem populo dictas sit, ei mel autem minim dicit. Eu has autem movet.Ne sed utroque albucius 
+                deseruisse. Usu te ceteros conceptam. Eum no ferri tincidunt. Ne quo illum detracto, ea nonumy apeirian insolens mea. Eu meliore 
+                mediocrem pro.Ne vel aeterno quaestio consulatu. Te vix enim quas partiendo. Voluptua consectetuer no nec. Id movet altera 
+                argumentum vis.Vix ex tractatos suavitate. Vocent legimus ad cum, cu est vidit vivendo scriptorem. Mea magna impedit ut, suas 
+                praesent vix at. In mel everti facilis, eam in detracto volutpat iracundia. Cu vix facilisis molestiae, illud suavitate laboramus 
+                ne mea, adhuc utamur reformidans id est. Id mei esse probatus, eam in accumsan qualisque hendrerit, cu tollit liberavisse vel.
+            </p>
+        
+            <p>
+                Lorem ipsum dolor sit amet, quo ex sanctus facilis habemus, vix eu option mediocritatem, inermis mnesarchum mediocritatem eum id. 
+                Iusto luptatum volutpat sea ut. At vim fierent interpretaris, eam omnis graeco et. Per hinc quando ea. Et choro omnes congue qui, 
+                mea ea movet errem, mel ut facer placerat. Tota graeco nostrum et has. Porro similique conceptam nec te, novum laudem voluptaria 
+                sea at. Melius appetere ut qui. <br><br>Te errem populo dictas sit, ei mel autem minim dicit. Eu has autem movet.Ne sed utroque albucius 
+                deseruisse. Usu te ceteros conceptam. Eum no ferri tincidunt. Ne quo illum detracto, ea nonumy apeirian insolens mea. Eu meliore 
+                mediocrem pro.Ne vel aeterno quaestio consulatu. Te vix enim quas partiendo. Voluptua consectetuer no nec. Id movet altera 
+                argumentum vis.Vix ex tractatos suavitate. Vocent legimus ad cum, cu est vidit vivendo scriptorem. Mea magna impedit ut, suas 
+                praesent vix at. In mel everti facilis, eam in detracto volutpat iracundia. Cu vix facilisis molestiae, illud suavitate laboramus 
+                ne mea, adhuc utamur reformidans id est. Id mei esse probatus, eam in accumsan qualisque hendrerit, cu tollit liberavisse vel.
+            </p>
+        </div>
+        
+        
+        <!-- scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../../lib/less.min.js" type="text/javascript"></script>            
+        
+        <!-- iframe aspect ratio adjustment -->
+        <script>
+            var resizeIframe = function(){
+                var iframeWidth = $(".embed").width();
+                var height = iframeWidth * 0.75;
+                $(".embed").css("height",height);
+            };
+            
+            $(window).resize(resizeIframe);
+            $(window).load(resizeIframe);
+        </script>
+    </body>
+</html>

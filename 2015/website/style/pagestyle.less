@@ -1,0 +1,148 @@
+@navbarColor: #4FC7E8;
+
+body{
+    font-family: helvetica;
+    font-weight:100;
+    padding:20px;
+}
+
+.logo{
+    margin-top: 10px; 
+}
+
+hr{
+    display: block; height: 1px;
+    border: 0; border-top: 1px solid @navbarColor;
+    margin: 1em 0; padding: 0; 
+}
+
+.titleInfo{
+    margin-left: 15px;    
+}
+
+h3{
+    color: @navbarColor;
+    font-family: "Roboto", helvetica;
+    font-weight: lighter;
+    text-transform: uppercase;    
+}
+
+h4{
+    font-weight: bolder; 
+    font-family: "Roboto", helvetica;
+    margin-top:35px;
+}
+
+img{
+    margin-bottom:10px;
+}
+
+.pageContentDiv{
+    
+    /*The content on the left side that talks about the project*/
+    .mainContent{
+        img{ width: 100%; }
+        
+        iframe{
+            width: 100%;
+            max-height: 500px;
+            border: 1px solid lightgray;
+        }
+
+        p{
+            font-family: helvetica;
+            font-weight:100;
+        }        
+    }
+    
+    /*Meta data on the right side that talks about the team, skills etc*/
+    .meta{
+        margin-left:15px;
+        .row{
+            
+            h5{
+                text-transform: uppercase;
+                font-weight: bolder;
+            }
+            
+            ul{
+                list-style-type: none;
+                padding: 0;
+                
+                li{                    
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    border-radius: 5px;
+                    margin-left: 5px;
+                    margin-bottom: 5px;
+                    height:30px;                    
+                    display:inline;
+                    float:left;
+                    background: #efefef;
+                    color: dimgray;
+                }
+                
+                .first{
+                    margin-left:0;
+                }
+            }
+            
+            .active{                
+                background: @navbarColor;
+                color: white;
+                cursor: pointer;
+            }
+        }
+        
+    }
+}
+
+.imageSlider{
+    overflow: hidden;
+    width: 100%;
+	position: relative;
+    
+    span{
+        width:10%;
+        height:12%;
+        position:absolute;
+        top:45%;
+        color:white;
+        text-align: center;
+        padding:10px;   
+        cursor:pointer;
+        
+    }
+    
+    .ctrlLeft{
+        left:0;
+        div{
+            position:relative;
+            background: url("../img/leftarrow.png") no-repeat;
+            background-size: contain;
+        }
+    }
+    .ctrlRight{
+        right:2px;
+        div{
+            position:relative;
+            left:15px;
+            background:url("../img/rightarrow.png") no-repeat;
+            background-size: contain;
+        }
+    }
+    
+    div{
+        position:absolute;
+        top:0;
+        float:left;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .img{
+        background-size: 100%;
+    }
+}

@@ -1,0 +1,132 @@
+<html>
+<!-- GE Healthcare -->
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet/less" href="../../style/pagestyle.css">
+</head>
+
+<body>
+    <div class="titleInfo">
+        <h1>Synaptic</h1>
+        <h3>Collaboration tool for radiology</h3>
+        <img src="ge-logo.jpg" width="150px" class="logo" alt="logo">
+        <br><hr>
+    </div>
+    
+    <div class="pageContentDiv">
+        <div class="container-fluid">            
+            <div class="row">                                
+                <!-- Meta data goes in here -->
+                <div class="col-sm-12 meta">                    
+                    <!-- Meta: Team -->
+                    <div class="row">
+                        <h4>Team</h4>
+                        <ul>
+                            <li class="first">Christian Park</li>                            
+                            <li class="">Russell Essary</li>
+                            <li>Mahvish Nagda</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Meta: Skills -->
+                    <div class="row">
+                        <h4>Skills</h4>
+                        <ul>
+                            <li class="first">User research</li>
+                            <li>Rapid Prototyping</li>
+                            <li>Interaction design</li>
+                            <li>C#/WPF/.NET</li>
+                            <li>UI Dev</li>                            
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Project core content -->
+                <div class="col-sm-12 mainContent">
+                    <h4>Problem</h4>
+                    <p>
+                        Radiologists spend hours on end reviewing medical images (x-rays, MRIs etc.) on their terminals. 
+                        A large part of their time is spent in dealing with interruptions on the phone or in person, making 
+                        them less productive due to excessive context switching. Also the tools they use to handle 
+                        communications with other stakeholders are outdated and not integrated with the tools they use to get their work done.
+                    </p>
+
+                    <h4>Solution</h4>
+                    <iframe class="embed" src="https://www.youtube.com/embed/AHlwiqadjGU?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                    <br><br>
+                    <p>
+                        Synaptic is a collaboration tool that integrates with the radiologists' current RIS/PACS system (used to read and review images)
+                        and provides them instant access to their colleagues. They can share case files with the colleagues and even invite them for
+                        a collaborative viewing of an image with useful features to highlight and mark images during the discussion.
+                    </p>
+                    
+                    <h4>Process - Overview</h4>
+                    <img src="iterations.jpg" width="100%" style="border:1px solid #fbfbfb">
+                    <p>
+                        The final concept for Synaptic was built over four iterations of the user centered design process. With each iteration, we focused
+                        in on the final feature set. Each iteration ended with testing our prototypes with users. Finally, we delivered the research, wireframes, 
+                        a consolidated design spec and an interactive prototype to GE Healthcare over a period of 8 months.
+                    </p>
+                    
+                    <h4>Research</h4>
+                    <p>
+                        We began our research by interviewing radiology residents at University of Pittsburgh to get a general idea of how radiologists typically
+                        their day. After doing our homework, we set out on a journey across four major hospital systems in the United States, shadowing and observing
+                        radiologits, imaging technicians, nurses and other stakeholders in the radiology ecosystem.
+                    </p>
+                    <div class="imageSlider">
+                        <!--divs for images -->
+                        <div class="img" style="background: url('research01.jpg') no-repeat;margin-left:0%;background-size:contain"></div>
+                        <div class="img" style="background: url('research02.jpg') no-repeat;margin-left:100%;background-size:contain"></div>
+                        <div class="img" style="background: url('research03.jpg') no-repeat;margin-left:200%;background-size:contain"></div>
+                        
+                        <!-- controls: left / right --->
+                        <span class="ctrlLeft"><div></div></span>
+                        <span class="ctrlRight"><div></div></span>
+                    </div>
+                    <br>
+                    <p>
+                        We synthesized our findings, developed workflow models and highlighted breakdowns in the radiology workflow. Next, we brainstormed 
+                        ideas which might help radiologists overcome some of these breakdowns. Through a careful aggregation process, we narrowed down thirty small ideas 
+                        into ten larger ideas. We rated these based on their impact/achievability ratio and pitched them to our clients at GE Healthcare to gauge their 
+                        enthusiasm.
+                    </p>
+                    <h4>Prototyping</h4>
+                    <p>
+                        Following the research phase, the team began putting ideas on paper. We prototyped various features through sketches
+                        on paper and with continuous feedback from our users, refined them to cleaner and more structured wireframe. These wireframes
+                        were used to build an interactive prototype (built in WPF and C#). As we tested and iterated over our features, we combined paper mockups of
+                        new designs with the existing interactive prototype to give our users a glimpse of how the product was changing.
+                    </p>
+                    <div class="imageSlider">
+                        <!--divs for images -->
+                        <div class="img" style="background: url('design01.jpg') no-repeat;margin-left:0%;background-size:cover"></div>
+                        <div class="img" style="background: url('design02.jpg') no-repeat;margin-left:100%;background-size:cover"></div>
+                        <div class="img" style="background: url('design03.jpg') no-repeat;margin-left:200%;background-size:cover"></div>
+                        
+                        <!-- controls: left / right --->
+                        <span class="ctrlLeft"><div></div></span>
+                        <span class="ctrlRight"><div></div></span>
+                    </div>
+                    <br>
+                    <h4>Finale</h4>
+                    <p>
+                        We delivered our research findings to GE Healthcare in the form of an exhaustive report, an interactive prototype and a design
+                        specification. You can read the entire report on <a href="http://www.slideshare.net/AsimMittal/synaptic-a-communication-collaboration-tool-for-radiology">my slideshare</a>.
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../lib/less.min.js" type="text/javascript"></script>
+    <script src="../../script/pagescript.js" type="text/javascript"></script>
+</body>
+
+</html>

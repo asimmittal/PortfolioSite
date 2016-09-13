@@ -1,0 +1,286 @@
+<html>
+<!-- Emmersiv -->
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet/less" href="../../style/pagestyle.css">
+</head>
+
+<body>
+    <div class="titleInfo">
+        <h1>Emmersiv</h1>
+        <h3>Therapy tool for kids with Autism</h3>
+        <img src="logo.jpg" width="150px" class="logo" alt="logo">
+        <br><hr>
+    </div>
+    
+    <div class="pageContentDiv">
+        <div class="container-fluid">            
+            <div class="row">                                
+                <!-- Meta data goes in here -->
+                <div class="col-sm-12 meta">                    
+                    <!-- Meta: Team -->
+                    <div class="row">
+                        <h4>Team</h4>
+                        <ul>
+                            <li class="first">Matt Small</li>                            
+                            <li class="">Dr. Christina Whalen</li>
+                            <li class="">Jason Norgaar</li>
+                            <li class="">Sandra Jones</li>
+                            <li class="">Luis Saenz</li>
+                            <li class="">Justin Doe</li>
+                            <li class="">Anthony Custodio</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Meta: Skills -->
+                    <div class="row">
+                        <h4>Skills</h4>
+                        <ul>
+                            <li class="first">User research</li>
+                            <li>Game Design</li>
+                            <li>Interaction design</li>
+                            <li>Software development</li>
+                            <li>Unity3D / C# / KinectSDK</li>
+                            <li>WPF / Windows Shell</li>                            
+                            <li>HTML/CSS/JavaScript</li>                            
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Project core content -->
+                <div class="col-sm-12 mainContent">
+                    <h4>Background</h4>
+                    <p>
+                        The prevalence of Autism is rising. 1 in 50 kids is now diagnosed with a form of ASD (Autism Spectrum Disorder).
+                        The primary mode of treatment for children with Autism is behavioral therapy which is delivered in a face-to-face
+                        setting by a certifed behavioral analyst. Often, these therapy sessions cost a lot and most clinics don't have the
+                        bandwidth to provide the required hours of treatment to kids affected by Autism.<br><br>
+                        
+                        I led the design of a solution, together with my team at the West Health Institute, to research new and engaging methods of delivering
+                        behavioral therapy to children on the spectrum. Over the course of my research, we built numerous prototypes and
+                        even a ran a small clinical study to see if kids with Autism can learn from digital tools.
+                    </p>
+
+                    <h4>Solution</h4>
+                    <iframe class="embed" src="https://www.youtube.com/embed/CQmfBRpUaUE?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                    <br><br>
+                    <p>
+                        The Emmersiv system uses the Microsoft Kinect and offers a host of mini-games that kids can play as a reward for 
+                        doing their therapy. The system delivers social skills therapy with emphasis on the following areas<br>
+                        <ul>
+                            <li>Understanding Affect</li>
+                            <li>Sportsmanship</li>
+                            <li>Attending to Conversations</li>
+                        </ul>
+                    </p>
+                    
+                    <h4>Design Process</h4>
+                    <p>
+                        Our design process had four major phases. With each phase, we made changes to our approach (clinically or technologically)
+                        and gradually shifted towards the current direction.
+                    </p>
+                    
+                    <img src="phases.jpg" width="100%"/>
+                
+                    <h4>Phase I: Observation</h4>
+                    <p>
+                        When the project began, I knew little about Autism or the challenges kids with this disorder faced. In a bid to educate
+                        myself about my target audience, we conducted "fly on the wall" studies to observe kids from across the spectrum interact
+                        with off the shelf Kinect games. We soon learned that the range of abilities across the spectrum varied immensely.<br><br>
+                        
+                        Kids with low to moderate severity had shorter attention spans and less than ideal motor skills. These kids struggled
+                        to use the Kinect. On the other hand, kids with higher functioning autism had abilities analogous to their neurotypical
+                        peers. They were able to pick up the gestural interaction metaphor within a few exposures to the Kinect system.<br><br>
+                    </p>
+                    <img src="phase1_observe1.jpg" width="100%"/>
+                    
+                    <h4>Phase II: Protoyping</h4>
+                    <p>
+                        Armed with the findings from our observational research, we began ideation. We came up with various interaction 
+                        metaphors around choice making behavior, feedback, prompting and reorienting kids back in view of the Kinect, if they
+                        stepped away from the playing area. Each metaphor was tested with kids and rated against recognition and ease of use.
+                        With the basic research around interaction completed, we proceeded to design the remainder of the prototype. This version
+                        utilized simple 2D games and cartoons as motivators for kids to endure their therapy (discrete trial based approach to teach
+                        basic language skills).
+                    </p>
+                    <div class="imageSlider">
+                        <!--divs for images -->
+                        <div class="img" style="background: url('phase2_interaction1.jpg') no-repeat;margin-left:0%;background-size:contain"></div>
+                        <div class="img" style="background: url('phase2_interaction2.jpg') no-repeat;margin-left:100%;background-size:contain"></div>
+                        <div class="img" style="background: url('phase2_interaction3.jpg') no-repeat;margin-left:200%;background-size:contain"></div>
+                        <div class="img" style="background: url('phase2_interaction4.jpg') no-repeat;margin-left:300%;background-size:contain"></div>
+                        <div class="img" style="background: url('phase2_interaction5.jpg') no-repeat;margin-left:400%;background-size:contain"></div>
+                        <div class="img" style="background: url('phase2_interaction6.jpg') no-repeat;margin-left:400%;background-size:contain"></div>
+                        
+                        <!-- controls: left / right --->
+                        <span class="ctrlLeft"><div></div></span>
+                        <span class="ctrlRight"><div></div></span>
+                    </div><br>
+                    <h4>Phase III: Research</h4>
+                    <p>
+                        Here's what I learnt from the previous stage of prototyping:<br>
+                        <ul>
+                            <li>Timely scheduling of rewards in between therapy will prolong engagement</li>
+                            <li>Content was too basic. Higher functioning kids needed something else</li>
+                            <li>The fidelity of content needs to be higher (comparable to what kids play regularly)</li>
+                        </ul>
+                        <br>
+                        So while our mechanic for oscillating between reward and therapy worked well, our fidelity and content wasn't
+                        rich enough to keep kids engaged for a long period of time. We decided to move away from simple 2D games to richer
+                        3D games that would be built in Unity3D. <br><br>
+                        
+                        We expanded our team and added professional artists and game developers to our team. At the same time, we brought
+                        in experienced therapists and special ed teachers to help us understand what would be more impactful to teach (other
+                        than language skills)<br><br>
+                        <div class="imageSlider">
+                            <!--divs for images -->
+                            <div class="img" style="background: url('phase3_research0.jpg') no-repeat;margin-left:0%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase3_research1.jpg') no-repeat;margin-left:100%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase3_research2.jpg') no-repeat;margin-left:200%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase3_research3.jpg') no-repeat;margin-left:300%;background-size:contain"></div>
+                           
+                            <!-- controls: left / right --->
+                            <span class="ctrlLeft"><div></div></span>
+                            <span class="ctrlRight"><div></div></span>
+                        </div>
+                        
+                        <h4>Phase IV: Design + Build</h4>
+                        <p>
+                            The key takeaways from the research phase were:
+                            <ul>
+                                <li>Social Skills was a core deficit of Autism. Build around this idea</li>
+                                <li>Teach social skills through video models (kids spectate interactions and comment upon what they saw)</li>
+                                <li>Delayed gratification must be incorporated in some form</li>
+                            </ul>
+                            <br>
+                            Keeping these in mind, the team decided to use the metaphor of a video game arcade. The video game arcade is
+                            a social setting that offers a framework for playing games (reward) and spectating interactions other people
+                            had in the arcade. Here are the artifacts at various stages of design.<br><br>
+                        </p>
+                        <div class="imageSlider">
+                            <!--divs for images -->
+                            <div class="img" style="background: url('phase4_build0.jpg') no-repeat;margin-left:0%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase4_build1.jpg') no-repeat;margin-left:100%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase4_build2.jpg') no-repeat;margin-left:200%;background-size:contain"></div>
+                            <!-- controls: left / right --->
+                            <span class="ctrlLeft"><div></div></span>
+                            <span class="ctrlRight"><div></div></span>
+                        </div>
+                        <h4>Designing interactions for kids</h4>
+                        <p>
+                            Since we were working with a variety of ages and abilities (even within the smaller subgroup of school aged children with 
+                            higher functioning autism), there were several challenges in building interaction metaphors that were easy for the kids
+                            to pick up and uniquely detectable by the Kinect sensor.<br><br>
+                            
+                            One of the biggest drawbacks of using a sensor such as the Kinect is that smaller bodies produce noisy skeleton data.
+                            During some of our earlier tests, we realized that the elbow joint was often confused for the shoulder when the child
+                            stuck his/her arm forward such that the hand occluded the shoulder. Issues like this forced us to design a gestural
+                            vocabulary that was based on more coarse movements such as leaning left/right (spinal column), raising both arms up and
+                            movement of the arm as a whole to point at different objects. We prototyped and tested at least six different interaction metaphors before settling on the gestures shown in this 
+                            video.
+                        </p>
+                        <iframe class="embed" src="https://www.youtube.com/embed/Xfurmkoy5A4?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                        <br>
+            
+                        <h4>Designing for in-home use</h4>
+                        <p>
+                            While it may not seem intuitive, the home is a very dynamic environment. This is true even more so, for families with kids on the
+                            Autism spectrum. During our initial tests, we realized that siblings, pets, furniture and even the variation in ambient
+                            lighting could potentially act as additional sources of noise for the Kinect. Furniture could be falsely recognized as
+                            a user and as much as we would try, siblings would often find it hard to resist the appeal of the game itself. For these
+                            reasons, we implemented a player lock mechanism.<br><br>
+                            
+                            While locking down all recognition of gestures to a single player wasn't very challenging, we had to find a subtle way to
+                            insert this mechanism into the app. At the beginning of the game, the player would open the door of the arcade to enter it.
+                            We tied this action to a hand raise gesture and locked onto the skeleton that performed this.<br><br>
+                            
+                            This turned out to be extremely simple. Most user's complied with this protocol unknowingly as it happened early enough in
+                            the lifetime of the application.
+                        </p>
+                        <div class="imageSlider">
+                            <!--divs for images -->
+                            <div class="img" style="background: url('playerlock_1.jpg') no-repeat;margin-left:0%;background-size:contain"></div>
+                            <div class="img" style="background: url('playerlock_2.jpg') no-repeat;margin-left:100%;background-size:contain"></div>
+                            
+                            <!-- controls: left / right --->
+                            <span class="ctrlLeft"><div></div></span>
+                            <span class="ctrlRight"><div></div></span>
+                        </div>
+                        <br>
+                        
+                        <h4>Core Content</h4>
+                        <p>
+                            During the course of the build, the team came up with numerous ideas for engaging mini games that would serve as motivators
+                            for kids to do their therapy. While this was a key component of our design, we didn't want to re-invent the wheel and
+                            borrowed mechanics from existing games which were big hits with kids. Here are snapshots of the games we created. Besides
+                            fun games, we also created 6 core characters, each with their own personalities. This cast of characters featured in over
+                            20 vignettes which were used to teach the kids about social skills.
+                        </p>
+                        <div class="imageSlider">
+                            <!--divs for images -->
+                            <div class="img" style="background: url('phase4_spaceGame.jpg') no-repeat;margin-left:0%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase4_zombieGame.jpg') no-repeat;margin-left:100%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase4_wizGame.jpg') no-repeat;margin-left:200%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase4_socialScene.jpg') no-repeat;margin-left:300%;background-size:contain"></div>
+                            <div class="img" style="background: url('phase4_question.jpg') no-repeat;margin-left:400%;background-size:contain"></div>
+                            
+                            <!-- controls: left / right --->
+                            <span class="ctrlLeft"><div></div></span>
+                            <span class="ctrlRight"><div></div></span>
+                        </div>
+                        <br>
+                        
+                        <h4>Clinical Study</h4>
+                        <p>
+                            Once the application was completed, we deployed the prototype in nine homes as part of a single subject study for
+                            Rady Children's Hospital. The application was deployed on the Alienware Alpha gaming console. The study ran for
+                            six months. Here are the key features of the study design:
+                            <br>
+                            <ul>
+                                <li>Pre Assessment (BEFORE)</li>
+                                <li>Intervention </li>
+                                <li>Post Assessment (AFTER)</li>
+                            </ul>
+                            
+                            In order to perform a pre and post assessment, I built an Android app that supervisors could use to gauge the
+                            child's proficiency. This app was basically a video assessment tool. The child would watch videos of social
+                            scenarios (based on the same curriculum) and answer a few questions pertaining to what they saw in the video.
+                        </p>
+                        <img src="videoassessment.jpg" width="100%"/>
+            
+                        <h4>Gathering data</h4>
+                        <p>
+                            The app would track the user's performance. There were numerous streams of data. The most obvious ones were around gameplay,
+                            their overall usage and their responses to the various questions posed after watching a social vignette. Besides data about
+                            how they used the app, we also took snapshots using the Kinect camera every time the game began. This proved useful later on
+                            when we wanted to establish if the child was in fact the participant and not his/her sibling.
+                        </p>
+                        <img src="datapipeline.jpg" width="100%"/>
+                        <br>
+            
+                        <h4>Research Findings</h4>
+                        <p>
+                            The study is currently being concluded and published. To summarize, here's what we learnt from the study:
+                            <ul>
+                                <li>It is possible to deliver social skills therapy in the home using an automated system</li>
+                                <li>8/9 participants completed the entire course of therapy as prescribed</li>
+                                <li>Our system was able to motivate and teach kids, in a manner similar to an actual therapist, but at a lower cost</li>
+                                <li>Most kids remained engaged with their therapy even after the novelty of the games wore off</li>
+                                <li>Kids demonstrated that they learnt content they didn't know before</li>
+                            </ul>
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../lib/less.min.js" type="text/javascript"></script>
+    <script src="../../script/pagescript.js" type="text/javascript"></script>
+</body>
+
+</html>

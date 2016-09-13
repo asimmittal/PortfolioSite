@@ -1,0 +1,98 @@
+<html>
+<!-- Secret Menu -->
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet/less" href="../../style/pagestyle.css">
+</head>
+
+<body>
+    <div class="titleInfo">
+        <h1>Secret Menu</h1>
+        <h3>Mobile app for the global foodie</h3>
+        <img src="em-logo.png" width="100px" class="logo" alt="logo">
+        <br><hr>
+    </div>
+    
+    <div class="pageContentDiv">
+        <div class="container-fluid">            
+            <div class="row">                                
+                <!-- Meta data goes in here -->
+                <div class="col-sm-12 meta">                    
+                    <!-- Meta: Team -->
+                    <div class="row">
+                        <h4>Team</h4>
+                        <ul>
+                            <li class="first">Diana Chen</li>                            
+                            <li class="">Adarsh Uppula</li>
+                            <li>Mohammed Kazzaz</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Meta: Skills -->
+                    <div class="row">
+                        <h4>Skills</h4>
+                        <ul>
+                            <li class="first">Brainstorming</li>
+                            <li>Wireframing</li>
+                            <li>UI Design</li>                            
+                            <li>Windows Phone SDK</li>
+                            <li>C#, Silverlight</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Project core content -->
+                <div class="col-sm-12 mainContent">
+                    <h4>The Big Idea</h4>
+                    <p>
+                        Emirates was looking for ideas to help engage its customers in interesting ways. Most food search apps (e.g. yelp, Eat24 etc.) are
+                        restaurant centric. Secret Menu is "food centric" and allows you to see what other travelers in the area have eaten during their 
+                        travels to the region you're currently in.<br><br>
+                        Moreover, much of Emirates' clientele hails from Asia and the middle East, regions where people have stronger dietary preferences 
+                        and restrictions. Secret Menu not only allows you to find local food in the region, but also indicates whether a dish was vegetarian,
+                        kosher or halal and how much it costs. This idea took a winning spot at the <a href="http://www.emirateshackathon.com/recap_mv_2013">Emirates Travel Hackathon</a> held in Mountain View (2013).
+                    </p>
+
+                    <h4>Screenshots</h4>
+                    <img src="secretmenu-portrait.png" width="100%">
+                    
+                    <h4>Features</h4>
+                    <p>
+                        Over the course of 24 hours, I designed the app flow, the UI and built an interactive prototype of the app on the Windows Phone platform. 
+                        Here were some of the key features of the protoype:
+                        <br>
+                        <ul>
+                            <li>Taking a picture of your food, tagging it with meta data</li>
+                            <li>Discovering food nearby</li>
+                            <li>Liking others' food selection</li>
+                            <li>Making reservations at Emirates' partner restaurants</li>
+                            <li>Sharing your secret menu with others</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../lib/less.min.js" type="text/javascript"></script>
+
+    <!-- iframe aspect ratio adjustment -->
+    <script>
+        var resizeIframe = function() {
+            var iframeWidth = $(".embed").width();
+            var height = iframeWidth * 0.75;
+            $(".embed").css("height", height);
+        };
+
+        $(window).resize(resizeIframe);
+        $(window).load(resizeIframe);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "browserify -t [ babelify --presets [ react ] ] src/app.js -o build/bundle.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
