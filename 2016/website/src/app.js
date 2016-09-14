@@ -6,7 +6,7 @@
     var ProjectData = require('./projects');
     var TileGridRenderer = require('./renderTiles');
     var MenuHandler = require('./menuToggle');
-
+    var ProjectPageLoader = require('./projectLoader');
 
     // Enable menu toggle
     // --------------------
@@ -25,6 +25,13 @@
     var tileContainer = document.getElementById('projectContainer');
     var projects = ProjectData.getProjectData();
     TileGridRenderer.renderTiles(projects,tileContainer);
+    
+    // Setup the project page
+    //-------------------------
+    // this 'project page' refers to a div in the body that is usually hidden
+    // when a project tile is clicked, it is animated into view and the content
+    // for that project is dynamically loaded into it. Let's perform some setup 
+    ProjectPageLoader.setup();
 
 })();
 

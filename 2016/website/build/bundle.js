@@ -30824,6 +30824,7 @@ module.exports = require('./lib/React');
     var ProjectData = require('./projects');
     var TileGridRenderer = require('./renderTiles');
     var MenuHandler = require('./menuToggle');
+    var ProjectPageLoader = require('./projectLoader');
 
     // Enable menu toggle
     // --------------------
@@ -30842,12 +30843,19 @@ module.exports = require('./lib/React');
     var tileContainer = document.getElementById('projectContainer');
     var projects = ProjectData.getProjectData();
     TileGridRenderer.renderTiles(projects, tileContainer);
+
+    // Setup the project page
+    //-------------------------
+    // this 'project page' refers to a div in the body that is usually hidden
+    // when a project tile is clicked, it is animated into view and the content
+    // for that project is dynamically loaded into it. Let's perform some setup 
+    ProjectPageLoader.setup();
 })();
 
-},{"./menuToggle":174,"./projects":175,"./renderTiles":176}],174:[function(require,module,exports){
-var $ = require('jquery');
-
+},{"./menuToggle":174,"./projectLoader":175,"./projects":176,"./renderTiles":177}],174:[function(require,module,exports){
 module.exports = function () {
+
+    var $ = require('jquery');
 
     //initial state
     var isMenuVisible = false;
@@ -30888,6 +30896,72 @@ module.exports = function () {
 }();
 
 },{"jquery":26}],175:[function(require,module,exports){
+module.exports = function () {
+
+    var $ = require('jquery');
+    var lastProject = null;
+
+    //setup the CSS for various component
+    var setupBeforeLoad = function () {
+        $("#projArea").css('width', '0px'); //ensure projArea is 0 width
+        $("#projArea").css('height', '0px'); //and 0 height
+        $("#projArea").css('left', '0px'); //flushed against the left edge
+        $("#projArea").css('right', '0px'); //flushed against the right edge
+        $("#projArea").css('top', '0px'); //flushed against the top edge
+        $("#projArea").css('opacity', '0'); //0 opacity
+
+        $("#projContent").css('opacity', '0'); //ensure content cannot be seen
+        $("#projClose").hide(); //ensure "X" is hidden
+    };
+
+    //method to unload the project page out of view
+    var unloadProjectPage = function () {
+        $("#projContent").animate({ opacity: '0' }, 120, function () {
+            //fade the content out of view
+            $("#projArea").animate({ height: '0%' }, 200); //animate the height back to 0
+            $("#portfolio").css('overflow', 'auto'); //enable scrolling on TileGrid
+            $("#projClose").hide(); //hide the "X" in top right corner
+        });
+    };
+
+    //event handler for "X" on the project area
+    $("#projClose").click(function () {
+        unloadProjectPage();
+    });
+
+    //stuff that's shared with the rest of the app
+    return {
+
+        setup: function () {
+            setupBeforeLoad();
+        },
+
+        actionLoadProject: function (project, event) {
+
+            setupBeforeLoad();
+
+            //show the project area
+            $("#projArea").show();
+
+            //start the animations
+            $('#projArea').animate({ opacity: 1 }, 30); //opacity anim
+            $("#projArea").animate({ width: '100%' }, 100); //animate its width
+            $("#projArea").animate({ height: '100%' }, 100, function () {
+                //and height
+                $("#projContent").animate({ opacity: '1' }, 400); //when complete, animate content
+                $("#portfolio").css('overflow', 'hidden'); //disable scrolling on the tileGrid
+                $("#projClose").show(); //show the "X" on top right
+            });
+        },
+
+        //external wrapper for unloading the project content
+        actionUnloadProject: function () {
+            unloadProjectPage();
+        }
+    };
+}();
+
+},{"jquery":26}],176:[function(require,module,exports){
 /*****************************************************************
  * This module returns a static class with a single method
  * 'getProjectData' --> returns all the project data needed
@@ -30977,7 +31051,7 @@ module.exports = function () {
     };
 }();
 
-},{}],176:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 /***************************************************************************
     * Exports:
         - A class that has a method to render the tileGrid
@@ -30991,6 +31065,7 @@ module.exports = function () {
 // Get React and ReactDOM
 var React = require('react');
 var ReactDOM = require('react-dom');
+var EventHandler = require('./projectLoader');
 
 // ProjectTile
 // Basically its a single column in a responsive bootstrap container
@@ -31001,7 +31076,20 @@ var ProjectTile = React.createClass({
     /// No real state needed, this is a passive component
     /// clicking it will simply open another page
     getInitialState: function () {
-        return null;
+        return { isHovered: false };
+    },
+
+    launchProject: function (event) {
+        var project = this.props.project;
+        EventHandler.actionLoadProject(project, event);
+    },
+
+    hover: function (event) {
+        this.setState({ isHovered: true });
+    },
+
+    leave: function (event) {
+        this.setState({ isHovered: false });
     },
 
     /// Render method
@@ -31012,18 +31100,25 @@ var ProjectTile = React.createClass({
         // a tagline and a title
         var project = this.props.project;
         var width = this.props.widthStyle;
+
+        //this applies a style sheet that helps with the "zoom on hover" effect
+        var scaleImageCSS = this.state.isHovered == true ? 'scaleUp' : 'scaleDown';
+
+        //this applies the actual project tile image to the background
         var divStyleForImage = {
             backgroundImage: 'url(' + project.img + ')'
         };
 
         // return the DOM for this component
         return (
-
             // 'col-md-4' is a responsive column (bootstrap)
             // 'tile' applies the custom style for this div
             React.createElement(
                 'div',
-                { className: width + " tile", style: divStyleForImage },
+                { className: width + " tile", onClick: this.launchProject,
+                    onMouseEnter: this.hover,
+                    onMouseLeave: this.leave },
+                React.createElement('div', { className: "image " + scaleImageCSS, style: divStyleForImage }),
                 React.createElement(
                     'div',
                     { className: 'projMeta' },
@@ -31071,8 +31166,7 @@ var TileGrid = React.createClass({
         // the list of projects is passed as a prop
         var projects = this.props.projects;
         var counter = 0;
-        var widthStyle_2 = 'col-md-6';
-        var appliedWidthStyle = widthStyle_2;
+        var appliedWidthStyle = 'col-md-6'; //two columns per row (bootstrap css)
 
         // return the DOM for each tile rendered using a ProjectTile component
         return React.createElement(
@@ -31095,4 +31189,4 @@ module.exports = function () {
     };
 }();
 
-},{"react":172,"react-dom":28}]},{},[173]);
+},{"./projectLoader":175,"react":172,"react-dom":28}]},{},[173]);

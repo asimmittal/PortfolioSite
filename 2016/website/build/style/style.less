@@ -1,5 +1,5 @@
 @baseColor: white; //#FF8787;
-@foreColor: darken(powderblue,50%);
+@foreColor: darken(pink,15%);
 @tileCoverColor: black;
 @headerHeight: 90px;
 
@@ -14,6 +14,20 @@ body{
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;     
+}
+
+.scaleUp{
+    transform: scale(1.4);
+    transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+}
+
+.scaleDown{
+    transform: scale(1);
+    transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
 }
 
 
@@ -145,7 +159,7 @@ body{
     // action icons in the header (on top right side)
     // hide the hamburger menu (this is used only on mobile
     // browsers)
-    @media (min-width:800px){
+    @media (min-width:750px){
         .headerActions {display: inline}
         .hamburger{display:none}
     }
@@ -155,7 +169,7 @@ body{
     // and show the hamburger icon. clicking this slides
     // the tile grid lower to reveal the context menu
     // this is for mobile browsers
-    @media (max-width:799px){
+    @media (max-width:749px){
         .headerActions {display: none}
         .hamburger{display:inline}
     }
@@ -177,28 +191,23 @@ body{
         
         .tile{
             height:350px;
-            background-size: cover;
-            background-repeat: no-repeat;
             cursor: pointer;
+            overflow: hidden;
             
+            @media (max-width:640px){
+                height: 250px;
+            }
             
-            .cover{
-                background: black;
-                position: absolute;
+            .image{
+                position:absolute;
                 left:0; right:0;
-                top: 0; bottom: 0;
-                opacity:0;
-                
-                &:hover{
-                    opacity: 0.75;
-                    transition: opacity .25s ease-in-out;
-                   -moz-transition: opacity .25s ease-in-out;
-                   -webkit-transition: opacity .25s ease-in-out;
-                }
+                top:0; bottom:0;
+                background-size: cover;
+                background-repeat: no-repeat;
             }
             
             .projMeta{
-                
+                border:1px solid black;
                 opacity: 0;
                 position: absolute;
                 left:0; right:0;
@@ -250,26 +259,34 @@ body{
 }
 
 
-#mask{
-    position: absolute;
-    background: black;
-    opacity:0.7;
-    left:0; right:0;
-    top: 0; bottom: 0;
+#projArea{
+    position: fixed;
+    background: white;
     display:none;
+    left:0; right: 0;
+    height: 100%;
+    overflow: auto;
+    
+    #projClose{
+        font-size: 36px;
+        font-family: 'Roboto',sans-serif;
+        font-weight: lighter;
+        color: gray;
+        cursor:pointer;
+        position: fixed;
+        right:30px; top: 30px;
+        -ms-transform: rotate(45deg); /* IE 9 */
+        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        transform: rotate(45deg);
+    }
+    
+    .content{
+        margin: 60px;
+        margin-right: 90px;
+        border: 1px dashed lightgray;
+    }
 }
 
-#projArea{
-    background: white;
-    position: absolute;
-    left:90px; right: 0;
-    top: 0; bottom: 0;
-    display: none;
-    -webkit-box-shadow: -4px 0px 36px -8px rgba(0,0,0,0.75);
-    -moz-box-shadow: -4px 0px 36px -8px rgba(0,0,0,0.75);
-    box-shadow: -4px 0px 36px -8px rgba(0,0,0,0.75);
-    overflow:hidden;
-}
 
 
 

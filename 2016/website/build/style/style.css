@@ -10,6 +10,18 @@ body {
   /* IE 10+ */
   user-select: none;
 }
+.scaleUp {
+  transform: scale(1.4);
+  transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+}
+.scaleDown {
+  transform: scale(1);
+  transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+}
 /*************************************************************
     #portfolio is the outermost div (just inside the body)
     that basically contains everything you see on the main
@@ -48,7 +60,7 @@ body {
   margin-left: 60px;
   margin-top: 10px;
   width: 300px;
-  color: #246a73;
+  color: #ff738c;
 }
 #portfolio .header .brand .name {
   font-family: 'Roboto', 'Sans Serif';
@@ -59,7 +71,7 @@ body {
   font-family: 'Roboto', 'Sans Serif';
   font-size: 14px;
   font-weight: 200;
-  color: #246a73;
+  color: #ff738c;
 }
 #portfolio .header .headerActions {
   float: right;
@@ -75,7 +87,7 @@ body {
   cursor: pointer;
 }
 #portfolio .header .headerActions ul li:hover {
-  color: #000000;
+  color: #da0026;
 }
 #portfolio .header .hamburger {
   float: left;
@@ -84,7 +96,7 @@ body {
   margin-top: 25px;
 }
 #portfolio .header .hamburger i {
-  color: #246a73;
+  color: #ff738c;
   font-size: 18px;
   text-align: center;
   margin-left: 20px;
@@ -94,7 +106,7 @@ body {
 #portfolio .navItems li {
   font-family: 'Roboto', helvetica, 'Sans Serif';
   font-size: 16px;
-  color: #246a73;
+  color: #ff738c;
   text-transform: uppercase;
   list-style: none;
   font-weight: 400;
@@ -106,9 +118,9 @@ body {
   top: 90px;
   height: 200px;
   background: white;
-  color: #246a73;
+  color: #ff738c;
   z-index: 0;
-  border-top: 1px dashed #fdfeff;
+  border-top: 1px dashed #ffffff;
   cursor: pointer;
 }
 #portfolio #menu ul {
@@ -117,7 +129,7 @@ body {
 #portfolio #menu ul li {
   margin-top: 15px;
 }
-@media (min-width: 800px) {
+@media (min-width: 750px) {
   #portfolio .headerActions {
     display: inline;
   }
@@ -125,7 +137,7 @@ body {
     display: none;
   }
 }
-@media (max-width: 799px) {
+@media (max-width: 749px) {
   #portfolio .headerActions {
     display: none;
   }
@@ -147,26 +159,25 @@ body {
 }
 .tileGrid .container-fluid .tile {
   height: 350px;
-  background-size: cover;
-  background-repeat: no-repeat;
   cursor: pointer;
+  overflow: hidden;
 }
-.tileGrid .container-fluid .tile .cover {
-  background: black;
+@media (max-width: 640px) {
+  .tileGrid .container-fluid .tile {
+    height: 250px;
+  }
+}
+.tileGrid .container-fluid .tile .image {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  opacity: 0;
-}
-.tileGrid .container-fluid .tile .cover:hover {
-  opacity: 0.75;
-  transition: opacity 0.25s ease-in-out;
-  -moz-transition: opacity 0.25s ease-in-out;
-  -webkit-transition: opacity 0.25s ease-in-out;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .tileGrid .container-fluid .tile .projMeta {
+  border: 1px solid black;
   opacity: 0;
   position: absolute;
   left: 0;
@@ -210,26 +221,32 @@ body {
   -moz-transition: opacity 0.25s ease-in-out;
   -webkit-transition: opacity 0.25s ease-in-out;
 }
-#mask {
-  position: absolute;
-  background: black;
-  opacity: 0.7;
+#projArea {
+  position: fixed;
+  background: white;
+  display: none;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
-  display: none;
+  height: 100%;
+  overflow: auto;
 }
-#projArea {
-  background: white;
-  position: absolute;
-  left: 90px;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: none;
-  -webkit-box-shadow: -4px 0px 36px -8px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -4px 0px 36px -8px rgba(0, 0, 0, 0.75);
-  box-shadow: -4px 0px 36px -8px rgba(0, 0, 0, 0.75);
-  overflow: hidden;
+#projArea #projClose {
+  font-size: 36px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  color: gray;
+  cursor: pointer;
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  -ms-transform: rotate(45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(45deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+}
+#projArea .content {
+  margin: 60px;
+  margin-right: 90px;
+  border: 1px dashed lightgray;
 }

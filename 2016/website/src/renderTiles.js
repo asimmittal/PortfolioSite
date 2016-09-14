@@ -11,6 +11,7 @@
 // Get React and ReactDOM
 var React = require('react');
 var ReactDOM = require('react-dom');
+var EventHandler = require('./projectLoader');
 
 // ProjectTile
 // Basically its a single column in a responsive bootstrap container
@@ -19,7 +20,20 @@ var ProjectTile = React.createClass({
     /// No real state needed, this is a passive component
     /// clicking it will simply open another page
     getInitialState: function(){
-        return null;
+        return {isHovered: false};
+    },
+    
+    launchProject: function(event){
+        var project = this.props.project;
+        EventHandler.actionLoadProject(project,event);
+    },
+    
+    hover: function(event){
+        this.setState({isHovered: true});
+    },
+    
+    leave: function(event){
+        this.setState({isHovered: false});
     },
     
     /// Render method
@@ -30,16 +44,23 @@ var ProjectTile = React.createClass({
         // a tagline and a title
         var project = this.props.project;
         var width = this.props.widthStyle;
+        
+        //this applies a style sheet that helps with the "zoom on hover" effect
+        var scaleImageCSS = (this.state.isHovered == true)? 'scaleUp':'scaleDown';
+        
+        //this applies the actual project tile image to the background
         var divStyleForImage = {
             backgroundImage: 'url(' + project.img + ')'   
         }
         
         // return the DOM for this component
         return (
-            
             // 'col-md-4' is a responsive column (bootstrap)
             // 'tile' applies the custom style for this div
-            <div className={width + " tile"} style={divStyleForImage}>
+            <div className={width + " tile"} onClick={this.launchProject} 
+                        onMouseEnter={this.hover}
+                        onMouseLeave={this.leave}>
+                <div className={"image "+scaleImageCSS} style={divStyleForImage}></div>
                 <div className="projMeta">
                     <p className="projTitle">{project.title}</p>
                     <p className="projDescr">{project.tagline}</p>
@@ -68,8 +89,7 @@ var TileGrid = React.createClass({
         // the list of projects is passed as a prop
         var projects = this.props.projects;
         var counter = 0;
-        var widthStyle_2 = 'col-md-6';
-        var appliedWidthStyle = widthStyle_2;
+        var appliedWidthStyle = 'col-md-6'; //two columns per row (bootstrap css)
         
         // return the DOM for each tile rendered using a ProjectTile component
         return (

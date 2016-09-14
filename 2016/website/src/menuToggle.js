@@ -1,7 +1,7 @@
-var $ = require('jquery');
-
 module.exports = (function(){
     
+    var $ = require('jquery');
+
     //initial state
     var isMenuVisible = false;
     
