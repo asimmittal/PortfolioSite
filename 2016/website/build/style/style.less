@@ -1,8 +1,19 @@
-@blue: #FF8787;
+@baseColor: white; //#FF8787;
+@foreColor: darken(powderblue,50%);
 @tileCoverColor: black;
+@headerHeight: 90px;
 
 body{
     overflow-y:hidden;
+}
+
+//Mixin to prevent user selection of text
+.noUserSelect {
+    //prevent user selection of any text
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;     
 }
 
 
@@ -17,6 +28,9 @@ body{
     
 **************************************************************/
 #portfolio{
+    
+    .noUserSelect();
+    
     position:fixed;
     top:0; bottom:0;
     left: 0px; right:0;
@@ -26,69 +40,62 @@ body{
     // header is the bar on top that has my name, what i do 
     // the hamburger menu toggle and the three action icons
     .header{
+        
         position: absolute;
-        height: 80px;
+        height: @headerHeight;
         top:0px; left:0; right: 0;
-        background: @blue;
+        background: @baseColor;
         
         .brand{
-
+            
             margin-left: 60px;
             margin-top: 10px;
-            width: 200px;
-            color: white;
+            width: 300px;
+            color: @foreColor;
 
             .name{
                 font-family: 'Roboto', 'Sans Serif';
                 font-size: 28px;
-                font-weight: lighter;
+                font-weight: 400;
             }
 
             .tagline{
                 font-family: 'Roboto', 'Sans Serif';
-                font-size: 12px;
-                font-weight: 100;
-                color: white;
+                font-size: 14px;
+                font-weight: 200;
+                color: @foreColor;
             }
         }
         
         .headerActions{
             float: right;
             height: 50px;
-            width: 180px;
-            //background: gray;
+            width: 300px;
             margin-right: 50px;
-            margin-top: 20px;
+            margin-top: 35px;
 
-            .headerIcon{
-                height: 40px;
-                width: 40px;
-                border: 1px solid white;
-                border-radius: 20px;
-                float:left;
-                margin-left: 15px;
-                cursor:pointer;
-                
-                i{
-                    font-size: 18px;
+            ul{
+                li{
+                    float:left;
+                    margin-left: 25px;
                     text-align: center;
-                    margin-left:10px;
-                    margin-top: 10px;
-                    color:white;
+                    cursor: pointer;
+                    
+                    &:hover{
+                        color: darken(@foreColor,30%);
+                    }
                 }
             }
-    
         }
         
         .hamburger{
             float: left;
             height: 40px;
             width: 40px;
-            margin-top:20px;  
-            display: none;
+            margin-top:25px;  
 
             i{
-                color:white;
+                color:@foreColor;
                 font-size: 18px;
                 text-align: center;
                 margin-left:20px;
@@ -98,32 +105,40 @@ body{
         }
     }
     
+    .navItems{
+        li{
+            font-family: 'Roboto',helvetica, 'Sans Serif';
+            font-size: 16px;
+            color:@foreColor;
+            text-transform: uppercase;
+            list-style: none;
+            font-weight:400;
+        }
+    }
+    
     // this is the context menu that is typically hidden beneath
     // the project tiles. it is shown when the hamburger icon
     // is clicked and used on small width browsers (mobile view)
     #menu{
+        
         position: absolute;
         left: 0; right: 0;
-        top: 80px;
+        top: @headerHeight;
         height: 200px;
-        background: @blue;
-        color:white;
+        background: @baseColor;
+        color:@foreColor;
         z-index: 0;
-        border-top: 1px solid lighten(@blue,10%);
+        border-top: 1px dashed lighten(@foreColor,70%);
+        cursor:pointer;
         
+       
         ul{
             margin-top:25px;
+            li{
+                margin-top: 15px;
+            }
         }
         
-        li{
-            font-family: 'Roboto',helvetica, 'Sans Serif';
-            font-size: 16px;
-            color:white;
-            margin: 10px;
-            text-transform: uppercase;
-            list-style: none;
-            font-weight: 100;
-        }
     }
     
     // when the screen is wider than 800px, show all the
@@ -155,15 +170,17 @@ body{
 .tileGrid{
     position: absolute;
     left:0; right:0;
-    top: 80px;
+    top: @headerHeight;
     background:white;
     
     .container-fluid{
+        
         .tile{
             height:350px;
             background-size: cover;
             background-repeat: no-repeat;
             cursor: pointer;
+            
             
             .cover{
                 background: black;
@@ -253,7 +270,6 @@ body{
     box-shadow: -4px 0px 36px -8px rgba(0,0,0,0.75);
     overflow:hidden;
 }
-
 
 
 

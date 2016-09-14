@@ -84,10 +84,14 @@ var TileGrid = React.createClass({
     }
 });
 
-// Return a method that basically draws the tile grid in the specified
-// container using the given data
-module.exports = function(){
-    this.render = function(data,container){
-        ReactDOM.render(<TileGrid projects={data}/>, container);
+// Returns a static class with a single method 'renderTiles' that
+// renders the tiles based on project data into the specified container
+module.exports = (function(){
+    return {
+        renderTiles: function(data,container){
+            if(data && container)
+                ReactDOM.render(<TileGrid projects={data}/>,container);
+        }
     }
-};
+})();
+                        

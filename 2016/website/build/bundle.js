@@ -30816,105 +30816,166 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 module.exports = require('./lib/React');
 
 },{"./lib/React":54}],173:[function(require,module,exports){
-//import necessary modules
-var ProjectData = require('./projects');
-var TileGridRenderer = require('./renderTiles');
-var MenuToggler = require('./menuToggle');
+(function () {
 
-//get all the project data
-var projects = new ProjectData().getProjects();
+    console.log("BooYaa!");
 
-//populate the grid of project tiles
-var tileContainer = document.getElementById('projectContainer');
-new TileGridRenderer().render(projects, tileContainer);
+    // import necessary modules
+    var ProjectData = require('./projects');
+    var TileGridRenderer = require('./renderTiles');
+    var MenuHandler = require('./menuToggle');
 
-//enable menu toggling
-new MenuToggler().enable();
+    // Enable menu toggle
+    // --------------------
+    // This does a bunch of things:
+    //  1.  handles click events on the menu toggle icon (hamburger icon)
+    //  2.  manages the animation of the "tilesGrid" which in turn reveals or hides
+    //      the context menu when viewed in mobile view
+    //  3.  If the menu is revealed and window gets reized, it hides the menu
+
+    MenuHandler.enable();
+
+    // Render all the project tiles
+    // -----------------------------
+    // the data is stored in a module 'projects.js'
+    // the project data is rendered as responsive columns in a bootstrap row
+    var tileContainer = document.getElementById('projectContainer');
+    var projects = ProjectData.getProjectData();
+    TileGridRenderer.renderTiles(projects, tileContainer);
+})();
 
 },{"./menuToggle":174,"./projects":175,"./renderTiles":176}],174:[function(require,module,exports){
 var $ = require('jquery');
 
-var MenuToggler = function () {
-
-    this.enable = function () {
-
-        var isMenuVisible = false;
-
-        //attach a click handler to the menu toggle control
-        $('#menuToggle').click(function (e) {
-            if (isMenuVisible == false) {
-                $('#tiles').animate({ top: "+=140" }, 120, 'linear');
-                isMenuVisible = true;
-            } else {
-                $('#tiles').animate({ top: "-=140" }, 120, 'linear');
-                isMenuVisible = false;
-            }
-        });
-    };
-};
-
-module.exports = MenuToggler;
-
-},{"jquery":26}],175:[function(require,module,exports){
 module.exports = function () {
 
-    var basePathToTiles = "images/tiles";
+    //initial state
+    var isMenuVisible = false;
 
-    var projects = [{
-        title: "Ximble",
-        tagline: "Scheduling + Time tracking platform",
-        img: "nimble_title.jpg",
-        url: "",
-        client: "Nimble Software",
-        year: 2015
-    }, {
-        title: "Emmersiv",
-        tagline: "Therapeutic Games for Autistic kids",
-        img: "emmersiv_title.jpg",
-        url: "",
-        client: "Client",
-        year: 2015
-    }, {
-        title: "Title 3",
-        tagline: "Some Description3",
-        img: "ge_title.jpg",
-        url: "",
-        client: "Client"
-    }, {
-        title: "Title 4",
-        tagline: "Some Description3",
-        img: "kinemed_title.jpg",
-        url: "",
-        client: "Client"
-    }, {
-        title: "Title 5",
-        tagline: "Some Description3",
-        img: "secretmenu_title.jpg",
-        url: "",
-        client: "Client"
-    }, {
-        title: "Title 6",
-        tagline: "Some Description3",
-        img: "depthselect_title.jpg",
-        url: "",
-        client: "Client"
-    }];
-
-    this.getProjects = function () {
-        var projectsWithPaths = projects.map(function (eachProj) {
-
-            //a little path transformation for the image attribute
-            eachProj.img = basePathToTiles + "/" + eachProj.img;
-            if (eachProj.hasOwnProperty('year')) {
-                eachProj.client += " (" + eachProj.year + ")";
-            }
-
-            return eachProj;
-        });
-
-        return projectsWithPaths;
+    var showMenu = function () {
+        if (isMenuVisible == false) {
+            $('#tiles').animate({ top: "+=140" }, 120, 'linear');
+            isMenuVisible = true;
+        }
     };
-};
+
+    var hideMenu = function () {
+        if (isMenuVisible == true) {
+            $('#tiles').animate({ top: "-=140" }, 120, 'linear');
+            isMenuVisible = false;
+        }
+    };
+
+    // function to toggle the menu visibility. If hidden, show it
+    // if visible, hide it
+    var toggleMenuVisibility = function (e) {
+        if (isMenuVisible == true) hideMenu();else showMenu();
+    };
+
+    // return an object that simply enables/disables the
+    // events on the menu toggle
+    return {
+
+        enable: function () {
+            $('#menuToggle').click(toggleMenuVisibility);
+            $(window).resize(hideMenu);
+        },
+
+        disable: function () {
+            $('#menuToggle').click(null);
+        }
+    };
+}();
+
+},{"jquery":26}],175:[function(require,module,exports){
+/*****************************************************************
+ * This module returns a static class with a single method
+ * 'getProjectData' --> returns all the project data needed
+ * to render the main page
+ *****************************************************************/
+
+module.exports = function () {
+
+    var ProjectDatabase = function () {
+
+        // use a bunch of vars to specify base paths, that can be
+        // easily changed later
+        var basePathToTiles = "images/tiles";
+
+        // the actual list of project meta data
+        var projects = [{
+            title: "Ximble",
+            tagline: "Scheduling + Time tracking platform",
+            img: "nimble_title.jpg",
+            url: "",
+            client: "Nimble Software",
+            year: 2015
+        }, {
+            title: "Emmersiv",
+            tagline: "Therapeutic Games for Autistic kids",
+            img: "emmersiv_title.jpg",
+            url: "",
+            client: "Client",
+            year: 2015
+        }, {
+            title: "Title 3",
+            tagline: "Some Description3",
+            img: "ge_title.jpg",
+            url: "",
+            client: "Client"
+        }, {
+            title: "Title 4",
+            tagline: "Some Description3",
+            img: "kinemed_title.jpg",
+            url: "",
+            client: "Client"
+        }, {
+            title: "Title 5",
+            tagline: "Some Description3",
+            img: "secretmenu_title.jpg",
+            url: "",
+            client: "Client"
+        }, {
+            title: "Title 6",
+            tagline: "Some Description3",
+            img: "depthselect_title.jpg",
+            url: "",
+            client: "Client"
+        }];
+
+        // a method that transforms some of the paths for local assets
+        // such as images etc. using the base paths. Returns a list
+        // identical to the projects list but with correct absolute
+        // paths to the various image assets
+        this.getProjects = function () {
+            var projectsWithPaths = projects.map(function (eachProj) {
+
+                // a little path transformation for the image attribute
+                eachProj.img = basePathToTiles + "/" + eachProj.img;
+
+                // transform the "client" field for projects that have
+                // valid value for the year field
+                if (eachProj.hasOwnProperty('year')) {
+                    eachProj.client += " (" + eachProj.year + ")";
+                }
+
+                return eachProj;
+            });
+
+            return projectsWithPaths;
+        };
+    }; //End ProjectDatabase
+
+    // create an instance of this DB object
+    var myDB = new ProjectDatabase();
+
+    // return a method that returns all the transformed project data
+    return {
+        getProjectData: function () {
+            return myDB.getProjects();
+        }
+    };
+}();
 
 },{}],176:[function(require,module,exports){
 /***************************************************************************
@@ -31024,12 +31085,14 @@ var TileGrid = React.createClass({
     }
 });
 
-// Return a method that basically draws the tile grid in the specified
-// container using the given data
+// Returns a static class with a single method 'renderTiles' that
+// renders the tiles based on project data into the specified container
 module.exports = function () {
-    this.render = function (data, container) {
-        ReactDOM.render(React.createElement(TileGrid, { projects: data }), container);
+    return {
+        renderTiles: function (data, container) {
+            if (data && container) ReactDOM.render(React.createElement(TileGrid, { projects: data }), container);
+        }
     };
-};
+}();
 
 },{"react":172,"react-dom":28}]},{},[173]);
