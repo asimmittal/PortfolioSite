@@ -1,35 +1,21 @@
 @baseColor: white; //#FF8787;
-@foreColor: darken(pink,15%);
+@foreColor: darken(pink, 15%);
 @tileCoverColor: black;
 @headerHeight: 90px;
-
-body{
-    overflow-y:hidden;
+body {
+    overflow-y: hidden;
 }
-
 //Mixin to prevent user selection of text
 .noUserSelect {
     //prevent user selection of any text
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;     
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
 }
-
-.scaleUp{
-    transform: scale(1.4);
-    transition: all .25s ease-in-out;
-    -moz-transition: all .25s ease-in-out;
-    -webkit-transition: all .25s ease-in-out;
-}
-
-.scaleDown{
-    transform: scale(1);
-    transition: all .25s ease-in-out;
-    -moz-transition: all .25s ease-in-out;
-    -webkit-transition: all .25s ease-in-out;
-}
-
 
 /*************************************************************
     #portfolio is the outermost div (just inside the body)
@@ -38,255 +24,359 @@ body{
 
         i. Header (with branding, hamburger, action icons)
         ii. Menu (resume,blog,contact) - mobile view
-        iii. tileGrid - renders all the project tiles
+        iii. tileGrid - renders all the project tiles (React)
+        iv. Spinner - inifinite spinner
     
 **************************************************************/
-#portfolio{
-    
+
+#portfolio {
     .noUserSelect();
-    
-    position:fixed;
-    top:0; bottom:0;
-    left: 0px; right:0;
-    background:white;
-    overflow-y:scroll;
-    
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0px;
+    right: 0;
+    background: white;
+    overflow-y: scroll;
     // header is the bar on top that has my name, what i do 
     // the hamburger menu toggle and the three action icons
-    .header{
-        
+    .header {
         position: absolute;
         height: @headerHeight;
-        top:0px; left:0; right: 0;
+        top: 0px;
+        left: 0;
+        right: 0;
         background: @baseColor;
-        
-        .brand{
-            
+        .brand {
             margin-left: 60px;
             margin-top: 10px;
             width: 300px;
             color: @foreColor;
-
-            .name{
+            .name {
                 font-family: 'Roboto', 'Sans Serif';
                 font-size: 28px;
                 font-weight: 400;
             }
-
-            .tagline{
+            .tagline {
                 font-family: 'Roboto', 'Sans Serif';
                 font-size: 14px;
                 font-weight: 200;
                 color: @foreColor;
             }
         }
-        
-        .headerActions{
+        .headerActions {
             float: right;
             height: 50px;
             width: 300px;
             margin-right: 50px;
             margin-top: 35px;
-
-            ul{
-                li{
-                    float:left;
+            ul {
+                li {
+                    float: left;
                     margin-left: 25px;
                     text-align: center;
                     cursor: pointer;
-                    
-                    &:hover{
-                        color: darken(@foreColor,30%);
+                    &:hover {
+                        color: darken(@foreColor, 30%);
                     }
                 }
             }
         }
-        
-        .hamburger{
+        .hamburger {
             float: left;
             height: 40px;
             width: 40px;
-            margin-top:25px;  
-
-            i{
-                color:@foreColor;
+            margin-top: 25px;
+            i {
+                color: @foreColor;
                 font-size: 18px;
                 text-align: center;
-                margin-left:20px;
+                margin-left: 20px;
                 margin-top: 10px;
                 cursor: pointer;
             }
         }
     }
-    
-    .navItems{
-        li{
-            font-family: 'Roboto',helvetica, 'Sans Serif';
+    .navItems {
+        li {
+            font-family: 'Roboto', helvetica, 'Sans Serif';
             font-size: 16px;
-            color:@foreColor;
+            color: @foreColor;
             text-transform: uppercase;
             list-style: none;
-            font-weight:400;
+            font-weight: 400;
         }
     }
-    
     // this is the context menu that is typically hidden beneath
     // the project tiles. it is shown when the hamburger icon
     // is clicked and used on small width browsers (mobile view)
-    #menu{
-        
+    #menu {
         position: absolute;
-        left: 0; right: 0;
+        left: 0;
+        right: 0;
         top: @headerHeight;
         height: 200px;
         background: @baseColor;
-        color:@foreColor;
+        color: @foreColor;
         z-index: 0;
-        border-top: 1px dashed lighten(@foreColor,70%);
-        cursor:pointer;
-        
-       
-        ul{
-            margin-top:25px;
-            li{
+        border-top: 1px dashed lighten(@foreColor, 70%);
+        cursor: pointer;
+        ul {
+            margin-top: 25px;
+            li {
                 margin-top: 15px;
             }
         }
-        
     }
-    
+    .spinner {
+        left: 50%;
+        top: 50%;
+        font-size: 40px;
+    }
     // when the screen is wider than 800px, show all the
     // action icons in the header (on top right side)
     // hide the hamburger menu (this is used only on mobile
     // browsers)
-    @media (min-width:750px){
-        .headerActions {display: inline}
-        .hamburger{display:none}
+    @media (min-width:750px) {
+        .headerActions {
+            display: inline
+        }
+        .hamburger {
+            display: none
+        }
+        #menu {
+            display: none
+        }
     }
-
     // when the screen is less than 800px, let's assume
     // we're on a mobile browser. Hide the action icons
     // and show the hamburger icon. clicking this slides
     // the tile grid lower to reveal the context menu
     // this is for mobile browsers
-    @media (max-width:749px){
-        .headerActions {display: none}
-        .hamburger{display:inline}
+    @media (max-width:749px) {
+        .headerActions {
+            display: none
+        }
+        .hamburger {
+            display: inline
+        }
+        #menu {
+            display: inline
+        }
     }
 }
 
+/*************************************************************
+    Infinite spinners look like this. Keyframe rotation used
+    to animate the spinner. Use more specific CSS to change
+    color, size etc.
+*************************************************************/
+
+.spinner {
+    color: @foreColor;
+    position: absolute;
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+@-webkit-keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 
 /*************************************************************
     tileGrid is a div that contains the fluid (bootstrap)
     containers and displays the tiles for each project. The
     project tiles are React components
 *************************************************************/
-.tileGrid{
+
+.tileGrid {
     position: absolute;
-    left:0; right:0;
+    left: 0;
+    right: 0;
     top: @headerHeight;
-    background:white;
-    
-    .container-fluid{
-        
-        .tile{
-            height:350px;
+    background: white;
+    .container-fluid {
+        .tile {
+            height: 300px;
             cursor: pointer;
             overflow: hidden;
-            
-            @media (max-width:640px){
+            //border: 1px solid white;
+            @media (max-width: 640px) {
                 height: 250px;
             }
-            
-            .image{
-                position:absolute;
-                left:0; right:0;
-                top:0; bottom:0;
+            .image {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
                 background-size: cover;
                 background-repeat: no-repeat;
             }
-            
-            .projMeta{
-                border:1px solid black;
-                opacity: 0;
+            .projMeta {
                 position: absolute;
-                left:0; right:0;
-                top:0; bottom: 0;
-                background: lighten(black,5%);
-                text-align: center;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                text-align: left;
                 vertical-align: middle;
-                line-height: 36px; 
-                
-                .projTitle{
+                line-height: 36px;
+                padding-left: 20px;
+                .projTitle {
                     font-family: 'Roboto', Helvetica;
                     font-size: 18px;
-                    color: white;
+                    color: black;
                     text-transform: uppercase;
-                    margin-top: 120px;
+                    margin-top: 5px;
                 }
-                
-                .projDescr{
+                .projDescr {
                     font-family: 'Roboto', Helvetica;
                     font-size: 14px;
                     font-weight: lighter;
                     margin-top: -20px;
-                    color:white;
+                    color: black;
                 }
-                
-                .projSep{
-                    color:lighten(black,40%);
-                    margin-top:-20px;
+                .projSep {
+                    color: lighten(black, 40%);
+                    margin-top: -20px;
+                    display: none;
                 }
-                
-                .projClient{
-                    color: lighten(black,70%);
+                .projClient {
+                    color: lighten(black, 50%);
                     font-size: 13px;
-                    font-family: helvetica;
+                    font-family: 'Roboto', sans-serif;
                     text-transform: capitalize;
                     margin-top: -20px;
-                    font-weight: 100;
-                }
-                
-                &:hover{
-                    opacity: 0.75;
-                    transition: opacity .25s ease-in-out;
-                   -moz-transition: opacity .25s ease-in-out;
-                   -webkit-transition: opacity .25s ease-in-out;
+                    font-weight: lighter;
                 }
             }
         }
     }
+    .scaleUpTileImage {
+        transform: scale(1.4);
+        transition: all .25s ease-in-out;
+        -moz-transition: all .25s ease-in-out;
+        -webkit-transition: all .25s ease-in-out;
+    }
+    .scaleDownTileImage {
+        transform: scale(1);
+        transition: all .25s ease-in-out;
+        -moz-transition: all .25s ease-in-out;
+        -webkit-transition: all .25s ease-in-out;
+    }
+    .slideUpTileMeta {
+        height: 95px;
+        background-color: rgba(255, 255, 255, 1);
+        transition: all .25s ease-in-out;
+        -moz-transition: all .25s ease-in-out;
+        -webkit-transition: all .25s ease-in-out;
+    }
+    .slideDownTileMeta {
+        height: 0px;
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: all .25s ease-in-out;
+        -moz-transition: all .25s ease-in-out;
+        -webkit-transition: all .25s ease-in-out;
+    }
 }
-
-
-#projArea{
+#projArea {
     position: fixed;
     background: white;
-    display:none;
-    left:0; right: 0;
+    display: none;
+    left: 0;
+    right: 0;
     height: 100%;
     overflow: auto;
-    
-    #projClose{
+    #projClose {
         font-size: 36px;
-        font-family: 'Roboto',sans-serif;
+        font-family: 'Roboto', sans-serif;
         font-weight: lighter;
         color: gray;
-        cursor:pointer;
+        cursor: pointer;
         position: fixed;
-        right:30px; top: 30px;
-        -ms-transform: rotate(45deg); /* IE 9 */
-        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        right: 30px;
+        top: 30px;
+        -ms-transform: rotate(45deg);
+        /* IE 9 */
+        -webkit-transform: rotate(45deg);
+        /* Chrome, Safari, Opera */
         transform: rotate(45deg);
     }
-    
-    .content{
+    .content {
         margin: 60px;
         margin-right: 90px;
-        border: 1px dashed lightgray;
+        h1 {
+            //project-title
+            font-family: 'Roboto', 'sans-serif';
+            font-weight: 200;
+            color:@foreColor;
+        }
+        h4 {
+            //project-subtitle
+            font-family: 'Roboto', 'sans-serif';
+            font-weight: lighter;
+            text-transform: uppercase;
+        }
+        h5 {
+            //generic subheading
+            font-family: helvetica;
+            font-weight: bold;
+            color: @foreColor;
+            text-transform: uppercase;
+        }
+        p {
+            //paragraph text
+            font-family: helvetica;
+            font-weight: lighter;
+        }
+        
+        hr{
+            height:1px; 
+            visibility:hidden; 
+            margin-bottom:-5px;
+        }
+        
+        img{
+            width:100%;
+            height:auto;
+        }
+        
+        .videoWrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 */
+            padding-top: 25px;
+            height: 0;
+            
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        
     }
 }
-
-
-
-

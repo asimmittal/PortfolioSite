@@ -46,7 +46,8 @@ var ProjectTile = React.createClass({
         var width = this.props.widthStyle;
         
         //this applies a style sheet that helps with the "zoom on hover" effect
-        var scaleImageCSS = (this.state.isHovered == true)? 'scaleUp':'scaleDown';
+        var scaleImageCSS = (this.state.isHovered == true)? 'scaleUpTileImage':'scaleDownTileImage';
+        var slideMetaCSS = (this.state.isHovered == true)? 'slideUpTileMeta':'slideDownTileMeta';
         
         //this applies the actual project tile image to the background
         var divStyleForImage = {
@@ -57,17 +58,19 @@ var ProjectTile = React.createClass({
         return (
             // 'col-md-4' is a responsive column (bootstrap)
             // 'tile' applies the custom style for this div
+            <a href="#work">
             <div className={width + " tile"} onClick={this.launchProject} 
                         onMouseEnter={this.hover}
                         onMouseLeave={this.leave}>
-                <div className={"image "+scaleImageCSS} style={divStyleForImage}></div>
-                <div className="projMeta">
+                <div className={"image " + scaleImageCSS} style={divStyleForImage}></div>
+                <div className={"projMeta " + slideMetaCSS}>
                     <p className="projTitle">{project.title}</p>
                     <p className="projDescr">{project.tagline}</p>
                     <p className="projSep">--</p>
                     <p className="projClient">{project.client}</p>
                 </div>
             </div>
+            </a>
         );
     }
 });
@@ -86,16 +89,14 @@ var TileGrid = React.createClass({
     /// Render method
     render: function(){
         
-        // the list of projects is passed as a prop
-        var projects = this.props.projects;
-        var counter = 0;
-        var appliedWidthStyle = 'col-md-6'; //two columns per row (bootstrap css)
+        var bootstrapColStr = 'col-md-6';
         
         // return the DOM for each tile rendered using a ProjectTile component
         return (
             <div className="row">
             {
-                projects.map(function(proj,index){
+                this.props.projects.map(function(proj,index){
+                    var appliedWidthStyle = bootstrapColStr
                     return (<ProjectTile key={index} project={proj} widthStyle={appliedWidthStyle}/>)
                 })
             }

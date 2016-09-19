@@ -30821,53 +30821,39 @@ module.exports = require('./lib/React');
     console.log("BooYaa!");
 
     // import necessary modules
-    var ProjectData = require('./projects');
-    var TileGridRenderer = require('./renderTiles');
+    var ProjectData = require('./storeProjectData');
+    var TileGridRenderer = require('./reactTiles');
     var MenuHandler = require('./menuToggle');
     var ProjectPageLoader = require('./projectLoader');
 
-    // Enable menu toggle
-    // --------------------
-    // This does a bunch of things:
-    //  1.  handles click events on the menu toggle icon (hamburger icon)
-    //  2.  manages the animation of the "tilesGrid" which in turn reveals or hides
-    //      the context menu when viewed in mobile view
-    //  3.  If the menu is revealed and window gets reized, it hides the menu
-
-    MenuHandler.enable();
-
-    // Render all the project tiles
-    // -----------------------------
-    // the data is stored in a module 'projects.js'
-    // the project data is rendered as responsive columns in a bootstrap row
     var tileContainer = document.getElementById('projectContainer');
     var projects = ProjectData.getProjectData();
-    TileGridRenderer.renderTiles(projects, tileContainer);
 
-    // Setup the project page
-    //-------------------------
-    // this 'project page' refers to a div in the body that is usually hidden
-    // when a project tile is clicked, it is animated into view and the content
-    // for that project is dynamically loaded into it. Let's perform some setup 
+    setTimeout(function () {
+        TileGridRenderer.renderTiles(projects, tileContainer);
+        MenuHandler.init();
+    }, 300);
+
     ProjectPageLoader.setup();
 })();
 
-},{"./menuToggle":174,"./projectLoader":175,"./projects":176,"./renderTiles":177}],174:[function(require,module,exports){
+},{"./menuToggle":174,"./projectLoader":175,"./reactTiles":176,"./storeProjectData":177}],174:[function(require,module,exports){
 module.exports = function () {
 
     var $ = require('jquery');
 
     //initial state
     var isMenuVisible = false;
+    $("#menu").hide();
 
-    var showMenu = function () {
+    var menuSlideOut = function () {
         if (isMenuVisible == false) {
             $('#tiles').animate({ top: "+=140" }, 120, 'linear');
             isMenuVisible = true;
         }
     };
 
-    var hideMenu = function () {
+    var menuSlideUp = function () {
         if (isMenuVisible == true) {
             $('#tiles').animate({ top: "-=140" }, 120, 'linear');
             isMenuVisible = false;
@@ -30877,20 +30863,18 @@ module.exports = function () {
     // function to toggle the menu visibility. If hidden, show it
     // if visible, hide it
     var toggleMenuVisibility = function (e) {
-        if (isMenuVisible == true) hideMenu();else showMenu();
+        if (isMenuVisible == true) menuSlideUp();else menuSlideOut();
     };
 
     // return an object that simply enables/disables the
     // events on the menu toggle
     return {
 
-        enable: function () {
+        init: function () {
+            $("#menuToggle").css('visibility', 'visible');
             $('#menuToggle').click(toggleMenuVisibility);
-            $(window).resize(hideMenu);
-        },
-
-        disable: function () {
-            $('#menuToggle').click(null);
+            $("#menu").show();
+            $(window).resize(menuSlideUp);
         }
     };
 }();
@@ -30900,6 +30884,15 @@ module.exports = function () {
 
     var $ = require('jquery');
     var lastProject = null;
+
+    // this will monitor when the back button on the browser is pressed
+    // and how to handle visibility of the project view when it is
+    var engageBackButton = function () {
+        window.onhashchange = function () {
+            var isProjVisible = $("#projArea").css('display') == 'none' ? false : true;
+            if (isProjVisible) unloadProjectPage();
+        };
+    };
 
     //setup the CSS for various component
     var setupBeforeLoad = function () {
@@ -30916,6 +30909,16 @@ module.exports = function () {
 
     //method to unload the project page out of view
     var unloadProjectPage = function () {
+
+        //remove the handler for the back button
+        window.onhashchange = null;
+
+        //if the user used "X" to close the proj view, manage the url in the
+        //browser's address bar appropriately
+        if (window.location.hash.indexOf("#") >= 0) {
+            window.history.back();
+        }
+
         $("#projContent").animate({ opacity: '0' }, 120, function () {
             //fade the content out of view
             $("#projArea").animate({ height: '0%' }, 200); //animate the height back to 0
@@ -30940,17 +30943,26 @@ module.exports = function () {
 
             setupBeforeLoad();
 
-            //show the project area
-            $("#projArea").show();
+            $("#projContent").load(project.url, function () {
 
-            //start the animations
-            $('#projArea').animate({ opacity: 1 }, 30); //opacity anim
-            $("#projArea").animate({ width: '100%' }, 100); //animate its width
-            $("#projArea").animate({ height: '100%' }, 100, function () {
-                //and height
-                $("#projContent").animate({ opacity: '1' }, 400); //when complete, animate content
-                $("#portfolio").css('overflow', 'hidden'); //disable scrolling on the tileGrid
-                $("#projClose").show(); //show the "X" on top right
+                //show the project area
+                $("#projArea").show();
+
+                //start the animations
+                $('#projArea').animate({ opacity: 1 }, 30); //opacity anim
+                $("#projArea").animate({ width: '100%' }, 100); //animate its width
+                $("#projArea").animate({ height: '100%' }, 100, function () {
+                    //and height
+                    $("#projContent").animate({ opacity: '1' }, 400); //when complete, animate content
+                    $("#portfolio").css('overflow', 'hidden'); //disable scrolling on the tileGrid
+                    $("#projClose").show(); //show the "X" on top right
+
+                    //the project area is now visible, make sure we manage the pressing of the
+                    //back button in the browser ourselves. The user may not always use the "X"
+                    //to close the project, instead he/she might press the back button on the 
+                    //browser to return to the tile grid
+                    engageBackButton();
+                });
             });
         },
 
@@ -30962,96 +30974,6 @@ module.exports = function () {
 }();
 
 },{"jquery":26}],176:[function(require,module,exports){
-/*****************************************************************
- * This module returns a static class with a single method
- * 'getProjectData' --> returns all the project data needed
- * to render the main page
- *****************************************************************/
-
-module.exports = function () {
-
-    var ProjectDatabase = function () {
-
-        // use a bunch of vars to specify base paths, that can be
-        // easily changed later
-        var basePathToTiles = "images/tiles";
-
-        // the actual list of project meta data
-        var projects = [{
-            title: "Ximble",
-            tagline: "Scheduling + Time tracking platform",
-            img: "nimble_title.jpg",
-            url: "",
-            client: "Nimble Software",
-            year: 2015
-        }, {
-            title: "Emmersiv",
-            tagline: "Therapeutic Games for Autistic kids",
-            img: "emmersiv_title.jpg",
-            url: "",
-            client: "Client",
-            year: 2015
-        }, {
-            title: "Title 3",
-            tagline: "Some Description3",
-            img: "ge_title.jpg",
-            url: "",
-            client: "Client"
-        }, {
-            title: "Title 4",
-            tagline: "Some Description3",
-            img: "kinemed_title.jpg",
-            url: "",
-            client: "Client"
-        }, {
-            title: "Title 5",
-            tagline: "Some Description3",
-            img: "secretmenu_title.jpg",
-            url: "",
-            client: "Client"
-        }, {
-            title: "Title 6",
-            tagline: "Some Description3",
-            img: "depthselect_title.jpg",
-            url: "",
-            client: "Client"
-        }];
-
-        // a method that transforms some of the paths for local assets
-        // such as images etc. using the base paths. Returns a list
-        // identical to the projects list but with correct absolute
-        // paths to the various image assets
-        this.getProjects = function () {
-            var projectsWithPaths = projects.map(function (eachProj) {
-
-                // a little path transformation for the image attribute
-                eachProj.img = basePathToTiles + "/" + eachProj.img;
-
-                // transform the "client" field for projects that have
-                // valid value for the year field
-                if (eachProj.hasOwnProperty('year')) {
-                    eachProj.client += " (" + eachProj.year + ")";
-                }
-
-                return eachProj;
-            });
-
-            return projectsWithPaths;
-        };
-    }; //End ProjectDatabase
-
-    // create an instance of this DB object
-    var myDB = new ProjectDatabase();
-
-    // return a method that returns all the transformed project data
-    return {
-        getProjectData: function () {
-            return myDB.getProjects();
-        }
-    };
-}();
-
-},{}],177:[function(require,module,exports){
 /***************************************************************************
     * Exports:
         - A class that has a method to render the tileGrid
@@ -31102,7 +31024,8 @@ var ProjectTile = React.createClass({
         var width = this.props.widthStyle;
 
         //this applies a style sheet that helps with the "zoom on hover" effect
-        var scaleImageCSS = this.state.isHovered == true ? 'scaleUp' : 'scaleDown';
+        var scaleImageCSS = this.state.isHovered == true ? 'scaleUpTileImage' : 'scaleDownTileImage';
+        var slideMetaCSS = this.state.isHovered == true ? 'slideUpTileMeta' : 'slideDownTileMeta';
 
         //this applies the actual project tile image to the background
         var divStyleForImage = {
@@ -31114,33 +31037,37 @@ var ProjectTile = React.createClass({
             // 'col-md-4' is a responsive column (bootstrap)
             // 'tile' applies the custom style for this div
             React.createElement(
-                'div',
-                { className: width + " tile", onClick: this.launchProject,
-                    onMouseEnter: this.hover,
-                    onMouseLeave: this.leave },
-                React.createElement('div', { className: "image " + scaleImageCSS, style: divStyleForImage }),
+                'a',
+                { href: '#work' },
                 React.createElement(
                     'div',
-                    { className: 'projMeta' },
+                    { className: width + " tile", onClick: this.launchProject,
+                        onMouseEnter: this.hover,
+                        onMouseLeave: this.leave },
+                    React.createElement('div', { className: "image " + scaleImageCSS, style: divStyleForImage }),
                     React.createElement(
-                        'p',
-                        { className: 'projTitle' },
-                        project.title
-                    ),
-                    React.createElement(
-                        'p',
-                        { className: 'projDescr' },
-                        project.tagline
-                    ),
-                    React.createElement(
-                        'p',
-                        { className: 'projSep' },
-                        '--'
-                    ),
-                    React.createElement(
-                        'p',
-                        { className: 'projClient' },
-                        project.client
+                        'div',
+                        { className: "projMeta " + slideMetaCSS },
+                        React.createElement(
+                            'p',
+                            { className: 'projTitle' },
+                            project.title
+                        ),
+                        React.createElement(
+                            'p',
+                            { className: 'projDescr' },
+                            project.tagline
+                        ),
+                        React.createElement(
+                            'p',
+                            { className: 'projSep' },
+                            '--'
+                        ),
+                        React.createElement(
+                            'p',
+                            { className: 'projClient' },
+                            project.client
+                        )
                     )
                 )
             )
@@ -31163,16 +31090,14 @@ var TileGrid = React.createClass({
     /// Render method
     render: function () {
 
-        // the list of projects is passed as a prop
-        var projects = this.props.projects;
-        var counter = 0;
-        var appliedWidthStyle = 'col-md-6'; //two columns per row (bootstrap css)
+        var bootstrapColStr = 'col-md-6';
 
         // return the DOM for each tile rendered using a ProjectTile component
         return React.createElement(
             'div',
             { className: 'row' },
-            projects.map(function (proj, index) {
+            this.props.projects.map(function (proj, index) {
+                var appliedWidthStyle = bootstrapColStr;
                 return React.createElement(ProjectTile, { key: index, project: proj, widthStyle: appliedWidthStyle });
             })
         );
@@ -31189,4 +31114,172 @@ module.exports = function () {
     };
 }();
 
-},{"./projectLoader":175,"react":172,"react-dom":28}]},{},[173]);
+},{"./projectLoader":175,"react":172,"react-dom":28}],177:[function(require,module,exports){
+/*****************************************************************
+ * This module returns a static class with a single method
+ * 'getProjectData' --> returns all the project data needed
+ * to render the main page
+ *****************************************************************/
+
+module.exports = function () {
+
+    /************************************************************
+        * A singleton that stores and manages the project 
+        * data. The data is stored, filtered and select
+        * functionality is exposed using getters / setters
+    *************************************************************/
+    var StoreProjectData = function () {
+
+        // use a bunch of vars to specify base paths, that can be
+        // easily changed later
+        var basePathToTiles = "images/tiles";
+        var basePathToProjects = "projects";
+
+        // the actual list of project meta data
+        var projects = [{
+            title: "Ximble",
+            tagline: "Scheduling + Time tracking platform",
+            img: "nimble_title.jpg",
+            url: "sample.html",
+            client: "Nimble Software",
+            year: 2015,
+            domains: ['ux design'],
+            skills: ['axure', 'sketch', 'adobe cs']
+        }, {
+            title: "Emmersiv",
+            tagline: "Therapeutic Games for Autistic kids",
+            img: "emmersiv_title.jpg",
+            url: "emmersiv.html",
+            client: "Westhealth Inst.",
+            year: 2015,
+            domains: ['ux design', 'game dev', 'software dev', 'project management'],
+            skills: ['c#', 'unity3d', 'python', 'javascript', 'highcharts', 'android']
+        }, {
+            title: "Secret Menu",
+            tagline: "Mobile app for foodies on the go",
+            img: "secretmenu_title.jpg",
+            url: "sample.html",
+            client: "Emirates Hackathon",
+            year: 2013,
+            domains: ['ux design', 'visual design', 'software dev'],
+            skills: ['c#', 'win phone']
+        }, {
+            title: "Synaptic",
+            tagline: "Communication tools for Radiology",
+            img: "ge_title.jpg",
+            url: "sample.html",
+            client: "GE Healthcare",
+            year: 2012,
+            domains: ['software dev', 'project management'],
+            skills: ['javascript', 'highcharts']
+        }, {
+            title: "DepthSelect",
+            tagline: "Leveraging pressure to resolve pick ambiguity",
+            img: "depthselect_title.jpg",
+            url: "sample.html",
+            client: "UIST Innovation Contest",
+            year: 2012,
+            domains: ["software dev"],
+            skills: ["c++"]
+        }, {
+            title: "Kinemed",
+            tagline: "Gestural interface for Surgeons",
+            img: "kinemed_title.jpg",
+            url: "sample.html",
+            client: "UPMC Pittsburgh",
+            year: 2011,
+            domains: ["UX design", "software dev"],
+            skills: ["C#", "WPF", "Kinect", "Gesture Recognition"]
+        }, {
+            title: "Coolstone",
+            tagline: "Turn your phone into a multitouch trackpad",
+            img: "coolstone_title.jpg",
+            url: "sample.html",
+            client: "Personal Project",
+            year: 2011,
+            domains: ["software dev"],
+            skills: ["android", "python"]
+        }, {
+            title: "Multitouch++",
+            tagline: "Improving multitouch on Android",
+            img: "multitouch_title.jpg",
+            url: "sample.html",
+            client: "Personal Project",
+            year: 2011,
+            domains: ["UX design", "software dev"],
+            skills: ["android"]
+        }];
+
+        this.domains = [];
+        this.skills = [];
+
+        //Apply some transformations to the data before its usable
+        //// 1. transform the 'img' field to point to the absolute path
+        //// 2. ensure that all the domain/skills are stored in a separate object for easy access
+
+        for (var indexProj in projects) {
+
+            var eachProj = projects[indexProj];
+
+            for (var indexDomain in eachProj.domains) {
+                var eachDomain = eachProj.domains[indexDomain];
+                eachDomain = eachDomain.trim().toLocaleLowerCase();
+                if (this.domains.indexOf(eachDomain) == -1) this.domains.push(eachDomain);
+            }
+
+            for (var indexSkill in eachProj.skills) {
+                var eachSkill = eachProj.skills[indexSkill];
+                eachSkill = eachSkill.trim().toLocaleLowerCase();
+                if (this.skills.indexOf(eachSkill) == -1) this.skills.push(eachSkill);
+            }
+        }
+
+        //// 3. ensure all the paths to image files are absolute
+        //// 4. ensure the client field shows client's name and year
+        this.projectData = projects.map(function (eachProj) {
+
+            //ensure images and links have absolute paths
+            eachProj.img = basePathToTiles + "/" + eachProj.img;
+            eachProj.url = basePathToProjects + "/" + eachProj.url;
+
+            if (eachProj.hasOwnProperty('year') && eachProj.year != undefined) {
+                eachProj.client += " (" + eachProj.year + ")";
+            }
+
+            return eachProj;
+        });
+    }; //End ProjectDatabase
+
+    var instance = new StoreProjectData();
+
+    return {
+        getProjectData: function (filterSkills, filterDomains) {
+
+            // handle empty arguments
+            // filter nothing, include all domains + skills
+            if (filterSkills == undefined) filterSkills = instance.skills;
+            if (filterDomains == undefined) filterDomains = instance.domains;
+
+            var result = [];
+
+            for (var index in instance.projectData) {
+                var proj = instance.projectData[index];
+                if (hasCommon(proj.domains, filterDomains) || hasCommon(proj.skills, filterSkills)) result.push(proj);
+            }
+
+            return result;
+        }
+    };
+}();
+
+/// Return true if list2 has common elements with list 1
+function hasCommon(list1, list2) {
+    for (var index in list2) {
+        var item = list2[index];
+        if (list1.indexOf(item) >= 0) return true;
+    }
+
+    return false;
+}
+
+},{}]},{},[173]);

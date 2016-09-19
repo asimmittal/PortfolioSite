@@ -4,15 +4,16 @@ module.exports = (function(){
 
     //initial state
     var isMenuVisible = false;
+    $("#menu").hide();
     
-    var showMenu = function(){
+    var menuSlideOut = function(){
         if(isMenuVisible == false){
             $('#tiles').animate({top: "+=140"},120,'linear');
             isMenuVisible = true;
         }
     };
     
-    var hideMenu = function(){
+    var menuSlideUp = function(){
         if(isMenuVisible == true){
             $('#tiles').animate({top: "-=140"},120,'linear');
             isMenuVisible = false;
@@ -22,8 +23,8 @@ module.exports = (function(){
     // function to toggle the menu visibility. If hidden, show it
     // if visible, hide it
     var toggleMenuVisibility = function(e){
-        if(isMenuVisible == true) hideMenu();
-        else showMenu();
+        if(isMenuVisible == true) menuSlideUp();
+        else menuSlideOut();
     }
     
     
@@ -31,13 +32,11 @@ module.exports = (function(){
     // events on the menu toggle
     return {
         
-        enable: function(){
+        init: function(){
+            $("#menuToggle").css('visibility','visible');
             $('#menuToggle').click(toggleMenuVisibility);
-            $(window).resize(hideMenu);
-        },  
-        
-        disable: function(){
-            $('#menuToggle').click(null);
+            $("#menu").show();
+            $(window).resize(menuSlideUp);
         }
     };
 })();
